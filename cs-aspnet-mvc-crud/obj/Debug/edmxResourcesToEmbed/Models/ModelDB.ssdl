@@ -1,0 +1,239 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="module">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="name" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="description" Type="nvarchar" MaxLength="100" />
+    <Property Name="module_category_id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="module_category">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="name" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="description" Type="nvarchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="note">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="name" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="description" Type="varchar" MaxLength="100" />
+    <Property Name="created_at" Type="datetime" Nullable="false" />
+    <Property Name="updated_at" Type="datetime" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="task">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="name" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="description" Type="varchar" MaxLength="100" />
+    <Property Name="status" Type="int" Nullable="false" />
+    <Property Name="created_at" Type="datetime" Nullable="false" />
+    <Property Name="updated_at" Type="datetime" />
+    <Property Name="user_id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="task_note">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="task_id" Type="int" Nullable="false" />
+    <Property Name="note_id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="user">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="username" Type="varchar" MaxLength="16" Nullable="false" />
+    <Property Name="password" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="first_name" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="last_name" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="email" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="picture" Type="varbinary(max)" />
+    <Property Name="birthdate" Type="date" Nullable="false" />
+    <Property Name="created_at" Type="datetime" Nullable="false" />
+    <Property Name="user_position_id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="user_action">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="name" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="module_id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="user_permission">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="user_position_id" Type="int" Nullable="false" />
+    <Property Name="user_action_id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="user_position">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="name" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="description" Type="varchar" MaxLength="100" />
+  </EntityType>
+  <Association Name="FK_module_module_category">
+    <End Role="module_category" Type="Self.module_category" Multiplicity="1" />
+    <End Role="module" Type="Self.module" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="module_category">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="module">
+        <PropertyRef Name="module_category_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_task_note_note">
+    <End Role="note" Type="Self.note" Multiplicity="1" />
+    <End Role="task_note" Type="Self.task_note" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="note">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="task_note">
+        <PropertyRef Name="note_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_task_note_task">
+    <End Role="task" Type="Self.task" Multiplicity="1" />
+    <End Role="task_note" Type="Self.task_note" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="task">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="task_note">
+        <PropertyRef Name="task_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_task_user">
+    <End Role="user" Type="Self.user" Multiplicity="1" />
+    <End Role="task" Type="Self.task" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="user">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="task">
+        <PropertyRef Name="user_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_user_action_module">
+    <End Role="module" Type="Self.module" Multiplicity="1" />
+    <End Role="user_action" Type="Self.user_action" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="module">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="user_action">
+        <PropertyRef Name="module_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_user_permission_user_action">
+    <End Role="user_action" Type="Self.user_action" Multiplicity="1" />
+    <End Role="user_permission" Type="Self.user_permission" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="user_action">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="user_permission">
+        <PropertyRef Name="user_action_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_user_permission_user_position">
+    <End Role="user_position" Type="Self.user_position" Multiplicity="1" />
+    <End Role="user_permission" Type="Self.user_permission" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="user_position">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="user_permission">
+        <PropertyRef Name="user_position_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_user_user_position">
+    <End Role="user_position" Type="Self.user_position" Multiplicity="1" />
+    <End Role="user" Type="Self.user" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="user_position">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="user">
+        <PropertyRef Name="user_position_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="ModelStoreContainer">
+    <EntitySet Name="module" EntityType="Self.module" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="module_category" EntityType="Self.module_category" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="note" EntityType="Self.note" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="task" EntityType="Self.task" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="task_note" EntityType="Self.task_note" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="user" EntityType="Self.user" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="user_action" EntityType="Self.user_action" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="user_permission" EntityType="Self.user_permission" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="user_position" EntityType="Self.user_position" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_module_module_category" Association="Self.FK_module_module_category">
+      <End Role="module_category" EntitySet="module_category" />
+      <End Role="module" EntitySet="module" />
+    </AssociationSet>
+    <AssociationSet Name="FK_task_note_note" Association="Self.FK_task_note_note">
+      <End Role="note" EntitySet="note" />
+      <End Role="task_note" EntitySet="task_note" />
+    </AssociationSet>
+    <AssociationSet Name="FK_task_note_task" Association="Self.FK_task_note_task">
+      <End Role="task" EntitySet="task" />
+      <End Role="task_note" EntitySet="task_note" />
+    </AssociationSet>
+    <AssociationSet Name="FK_task_user" Association="Self.FK_task_user">
+      <End Role="user" EntitySet="user" />
+      <End Role="task" EntitySet="task" />
+    </AssociationSet>
+    <AssociationSet Name="FK_user_action_module" Association="Self.FK_user_action_module">
+      <End Role="module" EntitySet="module" />
+      <End Role="user_action" EntitySet="user_action" />
+    </AssociationSet>
+    <AssociationSet Name="FK_user_permission_user_action" Association="Self.FK_user_permission_user_action">
+      <End Role="user_action" EntitySet="user_action" />
+      <End Role="user_permission" EntitySet="user_permission" />
+    </AssociationSet>
+    <AssociationSet Name="FK_user_permission_user_position" Association="Self.FK_user_permission_user_position">
+      <End Role="user_position" EntitySet="user_position" />
+      <End Role="user_permission" EntitySet="user_permission" />
+    </AssociationSet>
+    <AssociationSet Name="FK_user_user_position" Association="Self.FK_user_user_position">
+      <End Role="user_position" EntitySet="user_position" />
+      <End Role="user" EntitySet="user" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
