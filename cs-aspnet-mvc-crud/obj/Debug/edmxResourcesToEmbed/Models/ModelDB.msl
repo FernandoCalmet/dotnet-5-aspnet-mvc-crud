@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
   <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="DataBaseEntities">
-    <EntitySetMapping Name="module">
+    <EntitySetMapping Name="Module">
       <EntityTypeMapping TypeName="Model.module">
         <MappingFragment StoreEntitySet="module">
           <ScalarProperty Name="id" ColumnName="id" />
@@ -11,7 +11,7 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="module_category">
+    <EntitySetMapping Name="ModuleCategory">
       <EntityTypeMapping TypeName="Model.module_category">
         <MappingFragment StoreEntitySet="module_category">
           <ScalarProperty Name="id" ColumnName="id" />
@@ -20,7 +20,7 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="note">
+    <EntitySetMapping Name="Note">
       <EntityTypeMapping TypeName="Model.note">
         <MappingFragment StoreEntitySet="note">
           <ScalarProperty Name="id" ColumnName="id" />
@@ -42,7 +42,7 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="task">
+    <EntitySetMapping Name="Task">
       <EntityTypeMapping TypeName="Model.task">
         <MappingFragment StoreEntitySet="task">
           <ScalarProperty Name="id" ColumnName="id" />
@@ -55,7 +55,7 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="task_note">
+    <EntitySetMapping Name="TaskNote">
       <EntityTypeMapping TypeName="Model.task_note">
         <MappingFragment StoreEntitySet="task_note">
           <ScalarProperty Name="id" ColumnName="id" />
@@ -64,7 +64,7 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="user">
+    <EntitySetMapping Name="User">
       <EntityTypeMapping TypeName="Model.user">
         <MappingFragment StoreEntitySet="user">
           <ScalarProperty Name="id" ColumnName="id" />
@@ -80,7 +80,7 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="user_action">
+    <EntitySetMapping Name="UserAction">
       <EntityTypeMapping TypeName="Model.user_action">
         <MappingFragment StoreEntitySet="user_action">
           <ScalarProperty Name="id" ColumnName="id" />
@@ -89,7 +89,7 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="user_permission">
+    <EntitySetMapping Name="UserPermission">
       <EntityTypeMapping TypeName="Model.user_permission">
         <MappingFragment StoreEntitySet="user_permission">
           <ScalarProperty Name="id" ColumnName="id" />
@@ -98,7 +98,7 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="user_position">
+    <EntitySetMapping Name="UserPosition">
       <EntityTypeMapping TypeName="Model.user_position">
         <MappingFragment StoreEntitySet="user_position">
           <ScalarProperty Name="id" ColumnName="id" />

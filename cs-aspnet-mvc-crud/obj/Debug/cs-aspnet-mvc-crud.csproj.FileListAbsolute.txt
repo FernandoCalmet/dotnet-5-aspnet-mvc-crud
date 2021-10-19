@@ -68,7 +68,7 @@ D:\Github\FernandoCalmet\cs-aspnet-mvc-crud\cs-aspnet-mvc-crud\bin\es\System.Web
 D:\Github\FernandoCalmet\cs-aspnet-mvc-crud\cs-aspnet-mvc-crud\bin\es\System.Web.WebPages.resources.dll
 D:\Github\FernandoCalmet\cs-aspnet-mvc-crud\cs-aspnet-mvc-crud\bin\es\System.Web.WebPages.Deployment.resources.dll
 D:\Github\FernandoCalmet\cs-aspnet-mvc-crud\cs-aspnet-mvc-crud\bin\es\System.Web.WebPages.Razor.resources.dll
-D:\Github\FernandoCalmet\cs-aspnet-mvc-crud\cs-aspnet-mvc-crud\obj\Debug\cs-aspnet-mvc-crud.csproj.AssemblyReference.cache
 D:\Github\FernandoCalmet\cs-aspnet-mvc-crud\cs-aspnet-mvc-crud\obj\Debug\cs-aspnet-mvc-crud.csproj.CoreCompileInputs.cache
 D:\Github\FernandoCalmet\cs-aspnet-mvc-crud\cs-aspnet-mvc-crud\obj\Debug\cs-aspnet-mvc-crud.dll
 D:\Github\FernandoCalmet\cs-aspnet-mvc-crud\cs-aspnet-mvc-crud\obj\Debug\cs-aspnet-mvc-crud.pdb
+D:\Github\FernandoCalmet\cs-aspnet-mvc-crud\cs-aspnet-mvc-crud\obj\Debug\cs-aspnet-mvc-crud.csproj.CopyComplete

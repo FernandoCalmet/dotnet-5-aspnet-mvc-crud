@@ -113,8 +113,8 @@
     <NavigationProperty Name="user_permission" Relationship="Self.FK_user_permission_user_position" FromRole="user_position" ToRole="user_permission" />
   </EntityType>
   <Association Name="FK_module_module_category">
-    <End Role="module_category" Type="Self.module_category" Multiplicity="1" />
-    <End Role="module" Type="Self.module" Multiplicity="*" />
+    <End Role="module_category" Type="Model.module_category" Multiplicity="1" />
+    <End Role="module" Type="Model.module" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="module_category">
         <PropertyRef Name="id" />
@@ -125,8 +125,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_user_action_module">
-    <End Role="module" Type="Self.module" Multiplicity="1" />
-    <End Role="user_action" Type="Self.user_action" Multiplicity="*" />
+    <End Role="module" Type="Model.module" Multiplicity="1" />
+    <End Role="user_action" Type="Model.user_action" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="module">
         <PropertyRef Name="id" />
@@ -137,8 +137,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_task_note_note">
-    <End Role="note" Type="Self.note" Multiplicity="1" />
-    <End Role="task_note" Type="Self.task_note" Multiplicity="*" />
+    <End Role="note" Type="Model.note" Multiplicity="1" />
+    <End Role="task_note" Type="Model.task_note" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="note">
         <PropertyRef Name="id" />
@@ -149,8 +149,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_task_note_task">
-    <End Role="task" Type="Self.task" Multiplicity="1" />
-    <End Role="task_note" Type="Self.task_note" Multiplicity="*" />
+    <End Role="task" Type="Model.task" Multiplicity="1" />
+    <End Role="task_note" Type="Model.task_note" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="task">
         <PropertyRef Name="id" />
@@ -161,8 +161,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_task_user">
-    <End Role="user" Type="Self.user" Multiplicity="1" />
-    <End Role="task" Type="Self.task" Multiplicity="*" />
+    <End Role="user" Type="Model.user" Multiplicity="1" />
+    <End Role="task" Type="Model.task" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="user">
         <PropertyRef Name="id" />
@@ -173,8 +173,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_user_user_position">
-    <End Role="user_position" Type="Self.user_position" Multiplicity="1" />
-    <End Role="user" Type="Self.user" Multiplicity="*" />
+    <End Role="user_position" Type="Model.user_position" Multiplicity="1" />
+    <End Role="user" Type="Model.user" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="user_position">
         <PropertyRef Name="id" />
@@ -185,8 +185,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_user_permission_user_action">
-    <End Role="user_action" Type="Self.user_action" Multiplicity="1" />
-    <End Role="user_permission" Type="Self.user_permission" Multiplicity="*" />
+    <End Role="user_action" Type="Model.user_action" Multiplicity="1" />
+    <End Role="user_permission" Type="Model.user_permission" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="user_action">
         <PropertyRef Name="id" />
@@ -197,8 +197,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_user_permission_user_position">
-    <End Role="user_position" Type="Self.user_position" Multiplicity="1" />
-    <End Role="user_permission" Type="Self.user_permission" Multiplicity="*" />
+    <End Role="user_position" Type="Model.user_position" Multiplicity="1" />
+    <End Role="user_permission" Type="Model.user_permission" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="user_position">
         <PropertyRef Name="id" />
@@ -209,47 +209,47 @@
     </ReferentialConstraint>
   </Association>
   <EntityContainer Name="DataBaseEntities" annotation:LazyLoadingEnabled="true">
-    <EntitySet Name="module" EntityType="Self.module" />
-    <EntitySet Name="module_category" EntityType="Self.module_category" />
-    <EntitySet Name="note" EntityType="Self.note" />
+    <EntitySet Name="Module" EntityType="Model.module" />
+    <EntitySet Name="ModuleCategory" EntityType="Model.module_category" />
+    <EntitySet Name="Note" EntityType="Model.note" />
     <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
-    <EntitySet Name="task" EntityType="Self.task" />
-    <EntitySet Name="task_note" EntityType="Self.task_note" />
-    <EntitySet Name="user" EntityType="Self.user" />
-    <EntitySet Name="user_action" EntityType="Self.user_action" />
-    <EntitySet Name="user_permission" EntityType="Self.user_permission" />
-    <EntitySet Name="user_position" EntityType="Self.user_position" />
+    <EntitySet Name="Task" EntityType="Model.task" />
+    <EntitySet Name="TaskNote" EntityType="Model.task_note" />
+    <EntitySet Name="User" EntityType="Model.user" />
+    <EntitySet Name="UserAction" EntityType="Model.user_action" />
+    <EntitySet Name="UserPermission" EntityType="Model.user_permission" />
+    <EntitySet Name="UserPosition" EntityType="Model.user_position" />
     <AssociationSet Name="FK_module_module_category" Association="Self.FK_module_module_category">
-      <End Role="module_category" EntitySet="module_category" />
-      <End Role="module" EntitySet="module" />
+      <End Role="module_category" EntitySet="ModuleCategory" />
+      <End Role="module" EntitySet="Module" />
     </AssociationSet>
     <AssociationSet Name="FK_user_action_module" Association="Self.FK_user_action_module">
-      <End Role="module" EntitySet="module" />
-      <End Role="user_action" EntitySet="user_action" />
+      <End Role="module" EntitySet="Module" />
+      <End Role="user_action" EntitySet="UserAction" />
     </AssociationSet>
     <AssociationSet Name="FK_task_note_note" Association="Self.FK_task_note_note">
-      <End Role="note" EntitySet="note" />
-      <End Role="task_note" EntitySet="task_note" />
+      <End Role="note" EntitySet="Note" />
+      <End Role="task_note" EntitySet="TaskNote" />
     </AssociationSet>
     <AssociationSet Name="FK_task_note_task" Association="Self.FK_task_note_task">
-      <End Role="task" EntitySet="task" />
-      <End Role="task_note" EntitySet="task_note" />
+      <End Role="task" EntitySet="Task" />
+      <End Role="task_note" EntitySet="TaskNote" />
     </AssociationSet>
     <AssociationSet Name="FK_task_user" Association="Self.FK_task_user">
-      <End Role="user" EntitySet="user" />
-      <End Role="task" EntitySet="task" />
+      <End Role="user" EntitySet="User" />
+      <End Role="task" EntitySet="Task" />
     </AssociationSet>
     <AssociationSet Name="FK_user_user_position" Association="Self.FK_user_user_position">
-      <End Role="user_position" EntitySet="user_position" />
-      <End Role="user" EntitySet="user" />
+      <End Role="user_position" EntitySet="UserPosition" />
+      <End Role="user" EntitySet="User" />
     </AssociationSet>
     <AssociationSet Name="FK_user_permission_user_action" Association="Self.FK_user_permission_user_action">
-      <End Role="user_action" EntitySet="user_action" />
-      <End Role="user_permission" EntitySet="user_permission" />
+      <End Role="user_action" EntitySet="UserAction" />
+      <End Role="user_permission" EntitySet="UserPermission" />
     </AssociationSet>
     <AssociationSet Name="FK_user_permission_user_position" Association="Self.FK_user_permission_user_position">
-      <End Role="user_position" EntitySet="user_position" />
-      <End Role="user_permission" EntitySet="user_permission" />
+      <End Role="user_position" EntitySet="UserPosition" />
+      <End Role="user_permission" EntitySet="UserPermission" />
     </AssociationSet>
   </EntityContainer>
 </Schema>

@@ -13,7 +13,7 @@ namespace cs_aspnet_mvc_crud.Controllers
         // GET: Note
         public async Task<ActionResult> Index()
         {
-            return View(await entityModel.note.ToListAsync());
+            return View(await entityModel.Note.ToListAsync());
         }
 
         // GET: Note/Details/5
@@ -23,7 +23,7 @@ namespace cs_aspnet_mvc_crud.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            note note = await entityModel.note.FindAsync(id);
+            note note = await entityModel.Note.FindAsync(id);
             if (note == null)
             {
                 return HttpNotFound();
@@ -46,7 +46,7 @@ namespace cs_aspnet_mvc_crud.Controllers
         {
             if (ModelState.IsValid)
             {
-                entityModel.note.Add(note);
+                entityModel.Note.Add(note);
                 await entityModel.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
@@ -61,7 +61,7 @@ namespace cs_aspnet_mvc_crud.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            note note = await entityModel.note.FindAsync(id);
+            note note = await entityModel.Note.FindAsync(id);
             if (note == null)
             {
                 return HttpNotFound();
@@ -92,7 +92,7 @@ namespace cs_aspnet_mvc_crud.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            note note = await entityModel.note.FindAsync(id);
+            note note = await entityModel.Note.FindAsync(id);
             if (note == null)
             {
                 return HttpNotFound();
@@ -105,8 +105,8 @@ namespace cs_aspnet_mvc_crud.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            note note = await entityModel.note.FindAsync(id);
-            entityModel.note.Remove(note);
+            note note = await entityModel.Note.FindAsync(id);
+            entityModel.Note.Remove(note);
             await entityModel.SaveChangesAsync();
             return RedirectToAction("Index");
         }

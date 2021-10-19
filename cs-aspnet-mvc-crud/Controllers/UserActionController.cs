@@ -13,7 +13,7 @@ namespace cs_aspnet_mvc_crud.Controllers
         // GET: UserAction
         public async Task<ActionResult> Index()
         {
-            var user_action = entityModel.user_action.Include(u => u.module);
+            var user_action = entityModel.UserAction.Include(u => u.module);
             return View(await user_action.ToListAsync());
         }
 
@@ -24,7 +24,7 @@ namespace cs_aspnet_mvc_crud.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            user_action user_action = await entityModel.user_action.FindAsync(id);
+            user_action user_action = await entityModel.UserAction.FindAsync(id);
             if (user_action == null)
             {
                 return HttpNotFound();
@@ -35,7 +35,7 @@ namespace cs_aspnet_mvc_crud.Controllers
         // GET: UserAction/Create
         public ActionResult Create()
         {
-            ViewBag.module_id = new SelectList(entityModel.module, "id", "name");
+            ViewBag.module_id = new SelectList(entityModel.Module, "id", "name");
             return View();
         }
 
@@ -48,12 +48,12 @@ namespace cs_aspnet_mvc_crud.Controllers
         {
             if (ModelState.IsValid)
             {
-                entityModel.user_action.Add(user_action);
+                entityModel.UserAction.Add(user_action);
                 await entityModel.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.module_id = new SelectList(entityModel.module, "id", "name", user_action.module_id);
+            ViewBag.module_id = new SelectList(entityModel.Module, "id", "name", user_action.module_id);
             return View(user_action);
         }
 
@@ -64,12 +64,12 @@ namespace cs_aspnet_mvc_crud.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            user_action user_action = await entityModel.user_action.FindAsync(id);
+            user_action user_action = await entityModel.UserAction.FindAsync(id);
             if (user_action == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.module_id = new SelectList(entityModel.module, "id", "name", user_action.module_id);
+            ViewBag.module_id = new SelectList(entityModel.Module, "id", "name", user_action.module_id);
             return View(user_action);
         }
 
@@ -86,7 +86,7 @@ namespace cs_aspnet_mvc_crud.Controllers
                 await entityModel.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            ViewBag.module_id = new SelectList(entityModel.module, "id", "name", user_action.module_id);
+            ViewBag.module_id = new SelectList(entityModel.Module, "id", "name", user_action.module_id);
             return View(user_action);
         }
 
@@ -97,7 +97,7 @@ namespace cs_aspnet_mvc_crud.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            user_action user_action = await entityModel.user_action.FindAsync(id);
+            user_action user_action = await entityModel.UserAction.FindAsync(id);
             if (user_action == null)
             {
                 return HttpNotFound();
@@ -110,8 +110,8 @@ namespace cs_aspnet_mvc_crud.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            user_action user_action = await entityModel.user_action.FindAsync(id);
-            entityModel.user_action.Remove(user_action);
+            user_action user_action = await entityModel.UserAction.FindAsync(id);
+            entityModel.UserAction.Remove(user_action);
             await entityModel.SaveChangesAsync();
             return RedirectToAction("Index");
         }

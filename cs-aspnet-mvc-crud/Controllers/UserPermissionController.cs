@@ -13,7 +13,7 @@ namespace cs_aspnet_mvc_crud.Controllers
         // GET: UserPermission
         public async Task<ActionResult> Index()
         {
-            var user_permission = entityModel.user_permission.Include(u => u.user_action).Include(u => u.user_position);
+            var user_permission = entityModel.UserPermission.Include(u => u.user_action).Include(u => u.user_position);
             return View(await user_permission.ToListAsync());
         }
 
@@ -24,7 +24,7 @@ namespace cs_aspnet_mvc_crud.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            user_permission user_permission = await entityModel.user_permission.FindAsync(id);
+            user_permission user_permission = await entityModel.UserPermission.FindAsync(id);
             if (user_permission == null)
             {
                 return HttpNotFound();
@@ -35,8 +35,8 @@ namespace cs_aspnet_mvc_crud.Controllers
         // GET: UserPermission/Create
         public ActionResult Create()
         {
-            ViewBag.user_action_id = new SelectList(entityModel.user_action, "id", "name");
-            ViewBag.user_position_id = new SelectList(entityModel.user_position, "id", "name");
+            ViewBag.user_action_id = new SelectList(entityModel.UserAction, "id", "name");
+            ViewBag.user_position_id = new SelectList(entityModel.UserPosition, "id", "name");
             return View();
         }
 
@@ -49,13 +49,13 @@ namespace cs_aspnet_mvc_crud.Controllers
         {
             if (ModelState.IsValid)
             {
-                entityModel.user_permission.Add(user_permission);
+                entityModel.UserPermission.Add(user_permission);
                 await entityModel.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.user_action_id = new SelectList(entityModel.user_action, "id", "name", user_permission.user_action_id);
-            ViewBag.user_position_id = new SelectList(entityModel.user_position, "id", "name", user_permission.user_position_id);
+            ViewBag.user_action_id = new SelectList(entityModel.UserAction, "id", "name", user_permission.user_action_id);
+            ViewBag.user_position_id = new SelectList(entityModel.UserPosition, "id", "name", user_permission.user_position_id);
             return View(user_permission);
         }
 
@@ -66,13 +66,13 @@ namespace cs_aspnet_mvc_crud.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            user_permission user_permission = await entityModel.user_permission.FindAsync(id);
+            user_permission user_permission = await entityModel.UserPermission.FindAsync(id);
             if (user_permission == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.user_action_id = new SelectList(entityModel.user_action, "id", "name", user_permission.user_action_id);
-            ViewBag.user_position_id = new SelectList(entityModel.user_position, "id", "name", user_permission.user_position_id);
+            ViewBag.user_action_id = new SelectList(entityModel.UserAction, "id", "name", user_permission.user_action_id);
+            ViewBag.user_position_id = new SelectList(entityModel.UserPosition, "id", "name", user_permission.user_position_id);
             return View(user_permission);
         }
 
@@ -89,8 +89,8 @@ namespace cs_aspnet_mvc_crud.Controllers
                 await entityModel.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            ViewBag.user_action_id = new SelectList(entityModel.user_action, "id", "name", user_permission.user_action_id);
-            ViewBag.user_position_id = new SelectList(entityModel.user_position, "id", "name", user_permission.user_position_id);
+            ViewBag.user_action_id = new SelectList(entityModel.UserAction, "id", "name", user_permission.user_action_id);
+            ViewBag.user_position_id = new SelectList(entityModel.UserPosition, "id", "name", user_permission.user_position_id);
             return View(user_permission);
         }
 
@@ -101,7 +101,7 @@ namespace cs_aspnet_mvc_crud.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            user_permission user_permission = await entityModel.user_permission.FindAsync(id);
+            user_permission user_permission = await entityModel.UserPermission.FindAsync(id);
             if (user_permission == null)
             {
                 return HttpNotFound();
@@ -114,8 +114,8 @@ namespace cs_aspnet_mvc_crud.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            user_permission user_permission = await entityModel.user_permission.FindAsync(id);
-            entityModel.user_permission.Remove(user_permission);
+            user_permission user_permission = await entityModel.UserPermission.FindAsync(id);
+            entityModel.UserPermission.Remove(user_permission);
             await entityModel.SaveChangesAsync();
             return RedirectToAction("Index");
         }

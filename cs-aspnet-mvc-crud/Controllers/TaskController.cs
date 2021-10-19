@@ -13,7 +13,7 @@ namespace cs_aspnet_mvc_crud.Controllers
         // GET: Task
         public async Task<ActionResult> Index()
         {
-            var task = entityModel.task.Include(t => t.user);
+            var task = entityModel.Task.Include(t => t.user);
             return View(await task.ToListAsync());
         }
 
@@ -24,7 +24,7 @@ namespace cs_aspnet_mvc_crud.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            task task = await entityModel.task.FindAsync(id);
+            task task = await entityModel.Task.FindAsync(id);
             if (task == null)
             {
                 return HttpNotFound();
@@ -35,7 +35,7 @@ namespace cs_aspnet_mvc_crud.Controllers
         // GET: Task/Create
         public ActionResult Create()
         {
-            ViewBag.user_id = new SelectList(entityModel.user, "id", "username");
+            ViewBag.user_id = new SelectList(entityModel.User, "id", "username");
             return View();
         }
 
@@ -48,12 +48,12 @@ namespace cs_aspnet_mvc_crud.Controllers
         {
             if (ModelState.IsValid)
             {
-                entityModel.task.Add(task);
+                entityModel.Task.Add(task);
                 await entityModel.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.user_id = new SelectList(entityModel.user, "id", "username", task.user_id);
+            ViewBag.user_id = new SelectList(entityModel.User, "id", "username", task.user_id);
             return View(task);
         }
 
@@ -64,12 +64,12 @@ namespace cs_aspnet_mvc_crud.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            task task = await entityModel.task.FindAsync(id);
+            task task = await entityModel.Task.FindAsync(id);
             if (task == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.user_id = new SelectList(entityModel.user, "id", "username", task.user_id);
+            ViewBag.user_id = new SelectList(entityModel.User, "id", "username", task.user_id);
             return View(task);
         }
 
@@ -86,7 +86,7 @@ namespace cs_aspnet_mvc_crud.Controllers
                 await entityModel.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            ViewBag.user_id = new SelectList(entityModel.user, "id", "username", task.user_id);
+            ViewBag.user_id = new SelectList(entityModel.User, "id", "username", task.user_id);
             return View(task);
         }
 
@@ -97,7 +97,7 @@ namespace cs_aspnet_mvc_crud.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            task task = await entityModel.task.FindAsync(id);
+            task task = await entityModel.Task.FindAsync(id);
             if (task == null)
             {
                 return HttpNotFound();
@@ -110,8 +110,8 @@ namespace cs_aspnet_mvc_crud.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            task task = await entityModel.task.FindAsync(id);
-            entityModel.task.Remove(task);
+            task task = await entityModel.Task.FindAsync(id);
+            entityModel.Task.Remove(task);
             await entityModel.SaveChangesAsync();
             return RedirectToAction("Index");
         }

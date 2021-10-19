@@ -13,7 +13,7 @@ namespace cs_aspnet_mvc_crud.Controllers
         // GET: ModuleCategory
         public async Task<ActionResult> Index()
         {
-            return View(await entityModel.module_category.ToListAsync());
+            return View(await entityModel.ModuleCategory.ToListAsync());
         }
 
         // GET: ModuleCategory/Details/5
@@ -23,7 +23,7 @@ namespace cs_aspnet_mvc_crud.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            module_category module_category = await entityModel.module_category.FindAsync(id);
+            module_category module_category = await entityModel.ModuleCategory.FindAsync(id);
             if (module_category == null)
             {
                 return HttpNotFound();
@@ -46,7 +46,7 @@ namespace cs_aspnet_mvc_crud.Controllers
         {
             if (ModelState.IsValid)
             {
-                entityModel.module_category.Add(module_category);
+                entityModel.ModuleCategory.Add(module_category);
                 await entityModel.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
@@ -61,7 +61,7 @@ namespace cs_aspnet_mvc_crud.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            module_category module_category = await entityModel.module_category.FindAsync(id);
+            module_category module_category = await entityModel.ModuleCategory.FindAsync(id);
             if (module_category == null)
             {
                 return HttpNotFound();
@@ -92,7 +92,7 @@ namespace cs_aspnet_mvc_crud.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            module_category module_category = await entityModel.module_category.FindAsync(id);
+            module_category module_category = await entityModel.ModuleCategory.FindAsync(id);
             if (module_category == null)
             {
                 return HttpNotFound();
@@ -105,8 +105,8 @@ namespace cs_aspnet_mvc_crud.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            module_category module_category = await entityModel.module_category.FindAsync(id);
-            entityModel.module_category.Remove(module_category);
+            module_category module_category = await entityModel.ModuleCategory.FindAsync(id);
+            entityModel.ModuleCategory.Remove(module_category);
             await entityModel.SaveChangesAsync();
             return RedirectToAction("Index");
         }

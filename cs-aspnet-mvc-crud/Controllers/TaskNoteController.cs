@@ -13,7 +13,7 @@ namespace cs_aspnet_mvc_crud.Controllers
         // GET: TaskNote
         public async Task<ActionResult> Index()
         {
-            var task_note = entityModel.task_note.Include(t => t.note).Include(t => t.task);
+            var task_note = entityModel.TaskNote.Include(t => t.note).Include(t => t.task);
             return View(await task_note.ToListAsync());
         }
 
@@ -24,7 +24,7 @@ namespace cs_aspnet_mvc_crud.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            task_note task_note = await entityModel.task_note.FindAsync(id);
+            task_note task_note = await entityModel.TaskNote.FindAsync(id);
             if (task_note == null)
             {
                 return HttpNotFound();
@@ -35,8 +35,8 @@ namespace cs_aspnet_mvc_crud.Controllers
         // GET: TaskNote/Create
         public ActionResult Create()
         {
-            ViewBag.note_id = new SelectList(entityModel.note, "id", "name");
-            ViewBag.task_id = new SelectList(entityModel.task, "id", "name");
+            ViewBag.note_id = new SelectList(entityModel.Note, "id", "name");
+            ViewBag.task_id = new SelectList(entityModel.Task, "id", "name");
             return View();
         }
 
@@ -49,13 +49,13 @@ namespace cs_aspnet_mvc_crud.Controllers
         {
             if (ModelState.IsValid)
             {
-                entityModel.task_note.Add(task_note);
+                entityModel.TaskNote.Add(task_note);
                 await entityModel.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.note_id = new SelectList(entityModel.note, "id", "name", task_note.note_id);
-            ViewBag.task_id = new SelectList(entityModel.task, "id", "name", task_note.task_id);
+            ViewBag.note_id = new SelectList(entityModel.Note, "id", "name", task_note.note_id);
+            ViewBag.task_id = new SelectList(entityModel.Task, "id", "name", task_note.task_id);
             return View(task_note);
         }
 
@@ -66,13 +66,13 @@ namespace cs_aspnet_mvc_crud.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            task_note task_note = await entityModel.task_note.FindAsync(id);
+            task_note task_note = await entityModel.TaskNote.FindAsync(id);
             if (task_note == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.note_id = new SelectList(entityModel.note, "id", "name", task_note.note_id);
-            ViewBag.task_id = new SelectList(entityModel.task, "id", "name", task_note.task_id);
+            ViewBag.note_id = new SelectList(entityModel.Note, "id", "name", task_note.note_id);
+            ViewBag.task_id = new SelectList(entityModel.Task, "id", "name", task_note.task_id);
             return View(task_note);
         }
 
@@ -89,8 +89,8 @@ namespace cs_aspnet_mvc_crud.Controllers
                 await entityModel.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            ViewBag.note_id = new SelectList(entityModel.note, "id", "name", task_note.note_id);
-            ViewBag.task_id = new SelectList(entityModel.task, "id", "name", task_note.task_id);
+            ViewBag.note_id = new SelectList(entityModel.Note, "id", "name", task_note.note_id);
+            ViewBag.task_id = new SelectList(entityModel.Task, "id", "name", task_note.task_id);
             return View(task_note);
         }
 
@@ -101,7 +101,7 @@ namespace cs_aspnet_mvc_crud.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            task_note task_note = await entityModel.task_note.FindAsync(id);
+            task_note task_note = await entityModel.TaskNote.FindAsync(id);
             if (task_note == null)
             {
                 return HttpNotFound();
@@ -114,8 +114,8 @@ namespace cs_aspnet_mvc_crud.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            task_note task_note = await entityModel.task_note.FindAsync(id);
-            entityModel.task_note.Remove(task_note);
+            task_note task_note = await entityModel.TaskNote.FindAsync(id);
+            entityModel.TaskNote.Remove(task_note);
             await entityModel.SaveChangesAsync();
             return RedirectToAction("Index");
         }

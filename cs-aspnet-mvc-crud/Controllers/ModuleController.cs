@@ -13,7 +13,7 @@ namespace cs_aspnet_mvc_crud.Controllers
         // GET: Module
         public async Task<ActionResult> Index()
         {
-            var module = entityModel.module.Include(m => m.module_category);
+            var module = entityModel.Module.Include(m => m.module_category);
             return View(await module.ToListAsync());
         }
 
@@ -24,7 +24,7 @@ namespace cs_aspnet_mvc_crud.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            module module = await entityModel.module.FindAsync(id);
+            module module = await entityModel.Module.FindAsync(id);
             if (module == null)
             {
                 return HttpNotFound();
@@ -35,7 +35,7 @@ namespace cs_aspnet_mvc_crud.Controllers
         // GET: Module/Create
         public ActionResult Create()
         {
-            ViewBag.module_category_id = new SelectList(entityModel.module_category, "id", "name");
+            ViewBag.module_category_id = new SelectList(entityModel.ModuleCategory, "id", "name");
             return View();
         }
 
@@ -48,12 +48,12 @@ namespace cs_aspnet_mvc_crud.Controllers
         {
             if (ModelState.IsValid)
             {
-                entityModel.module.Add(module);
+                entityModel.Module.Add(module);
                 await entityModel.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.module_category_id = new SelectList(entityModel.module_category, "id", "name", module.module_category_id);
+            ViewBag.module_category_id = new SelectList(entityModel.ModuleCategory, "id", "name", module.module_category_id);
             return View(module);
         }
 
@@ -64,12 +64,12 @@ namespace cs_aspnet_mvc_crud.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            module module = await entityModel.module.FindAsync(id);
+            module module = await entityModel.Module.FindAsync(id);
             if (module == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.module_category_id = new SelectList(entityModel.module_category, "id", "name", module.module_category_id);
+            ViewBag.module_category_id = new SelectList(entityModel.ModuleCategory, "id", "name", module.module_category_id);
             return View(module);
         }
 
@@ -86,7 +86,7 @@ namespace cs_aspnet_mvc_crud.Controllers
                 await entityModel.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            ViewBag.module_category_id = new SelectList(entityModel.module_category, "id", "name", module.module_category_id);
+            ViewBag.module_category_id = new SelectList(entityModel.ModuleCategory, "id", "name", module.module_category_id);
             return View(module);
         }
 
@@ -97,7 +97,7 @@ namespace cs_aspnet_mvc_crud.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            module module = await entityModel.module.FindAsync(id);
+            module module = await entityModel.Module.FindAsync(id);
             if (module == null)
             {
                 return HttpNotFound();
@@ -110,8 +110,8 @@ namespace cs_aspnet_mvc_crud.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            module module = await entityModel.module.FindAsync(id);
-            entityModel.module.Remove(module);
+            module module = await entityModel.Module.FindAsync(id);
+            entityModel.Module.Remove(module);
             await entityModel.SaveChangesAsync();
             return RedirectToAction("Index");
         }

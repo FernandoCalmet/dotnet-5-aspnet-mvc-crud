@@ -1,5 +1,7 @@
-﻿using System;
+﻿using cs_aspnet_mvc_crud.Models;
+using System;
 using System.Web.Security;
+using System.Linq;
 
 namespace cs_aspnet_mvc_crud.Middleware.Providers
 {
@@ -32,9 +34,23 @@ namespace cs_aspnet_mvc_crud.Middleware.Providers
             throw new NotImplementedException();
         }
 
-        public override string[] GetRolesForUser(string username)
+        public override string[] GetRolesForUser(string userPositionName)
         {
-            throw new NotImplementedException();
+            using (DataBaseEntities entityModel = new DataBaseEntities())
+            {
+                var userPositions = (
+                    from userMapping in entityModel.User
+                        join positionMapping in entityModel.UserPosition
+                            on userMapping.user_position_id equals positionMapping.id
+                        join permissionMapping in entityModel.UserPermission
+                            on positionMapping.id equals permissionMapping.user_position_id
+                        join ActionMapping in entityModel.UserAction
+                            on permissionMapping.user_action_id equals ActionMapping.id
+                    where permissionMapping.user_position_id == userMapping.user_position_id 
+                        && positionMapping.name == userPositionName
+                    select positionMapping.name).ToArray();
+                return userPositions;
+            }
         }
 
         public override string[] GetUsersInRole(string roleName)

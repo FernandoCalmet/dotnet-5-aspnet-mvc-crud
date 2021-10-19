@@ -25,15 +25,15 @@ namespace cs_aspnet_mvc_crud.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<module> module { get; set; }
-        public virtual DbSet<module_category> module_category { get; set; }
-        public virtual DbSet<note> note { get; set; }
+        public virtual DbSet<module> Module { get; set; }
+        public virtual DbSet<module_category> ModuleCategory { get; set; }
+        public virtual DbSet<note> Note { get; set; }
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
-        public virtual DbSet<task> task { get; set; }
-        public virtual DbSet<task_note> task_note { get; set; }
-        public virtual DbSet<user> user { get; set; }
-        public virtual DbSet<user_action> user_action { get; set; }
-        public virtual DbSet<user_permission> user_permission { get; set; }
-        public virtual DbSet<user_position> user_position { get; set; }
+        public virtual DbSet<task> Task { get; set; }
+        public virtual DbSet<task_note> TaskNote { get; set; }
+        public virtual DbSet<user> User { get; set; }
+        public virtual DbSet<user_action> UserAction { get; set; }
+        public virtual DbSet<user_permission> UserPermission { get; set; }
+        public virtual DbSet<user_position> UserPosition { get; set; }
     }
 }

@@ -13,7 +13,7 @@ namespace cs_aspnet_mvc_crud.Controllers
         // GET: UserPosition
         public async Task<ActionResult> Index()
         {
-            return View(await entityModel.user_position.ToListAsync());
+            return View(await entityModel.UserPosition.ToListAsync());
         }
 
         // GET: UserPosition/Details/5
@@ -23,7 +23,7 @@ namespace cs_aspnet_mvc_crud.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            user_position user_position = await entityModel.user_position.FindAsync(id);
+            user_position user_position = await entityModel.UserPosition.FindAsync(id);
             if (user_position == null)
             {
                 return HttpNotFound();
@@ -46,7 +46,7 @@ namespace cs_aspnet_mvc_crud.Controllers
         {
             if (ModelState.IsValid)
             {
-                entityModel.user_position.Add(user_position);
+                entityModel.UserPosition.Add(user_position);
                 await entityModel.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
@@ -61,7 +61,7 @@ namespace cs_aspnet_mvc_crud.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            user_position user_position = await entityModel.user_position.FindAsync(id);
+            user_position user_position = await entityModel.UserPosition.FindAsync(id);
             if (user_position == null)
             {
                 return HttpNotFound();
@@ -92,7 +92,7 @@ namespace cs_aspnet_mvc_crud.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            user_position user_position = await entityModel.user_position.FindAsync(id);
+            user_position user_position = await entityModel.UserPosition.FindAsync(id);
             if (user_position == null)
             {
                 return HttpNotFound();
@@ -105,8 +105,8 @@ namespace cs_aspnet_mvc_crud.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            user_position user_position = await entityModel.user_position.FindAsync(id);
-            entityModel.user_position.Remove(user_position);
+            user_position user_position = await entityModel.UserPosition.FindAsync(id);
+            entityModel.UserPosition.Remove(user_position);
             await entityModel.SaveChangesAsync();
             return RedirectToAction("Index");
         }
