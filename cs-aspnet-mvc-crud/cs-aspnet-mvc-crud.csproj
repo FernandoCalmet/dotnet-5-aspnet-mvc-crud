@@ -132,6 +132,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AuthController.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ModuleCategoryController.cs" />
     <Compile Include="Controllers\ModuleController.cs" />
@@ -145,8 +146,8 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Middleware\Auth\Authorization.cs" />
-    <Compile Include="Middleware\Auth\Session.cs" />
+    <Compile Include="Middleware\Auth\UserAuthorization.cs" />
+    <Compile Include="Middleware\Auth\UserSession.cs" />
     <Compile Include="Middleware\Providers\UserRoleProvider.cs" />
     <Compile Include="Models\ModelDB.Context.cs">
       <AutoGen>True</AutoGen>
@@ -274,6 +275,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Base\" />
   </ItemGroup>
   <ItemGroup>
     <EntityDeploy Include="Models\ModelDB.edmx">

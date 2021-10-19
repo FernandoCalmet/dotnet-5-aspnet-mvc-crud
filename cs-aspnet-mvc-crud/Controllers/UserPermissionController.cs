@@ -3,14 +3,14 @@ using System.Threading.Tasks;
 using System.Net;
 using System.Web.Mvc;
 using cs_aspnet_mvc_crud.Models;
+using cs_aspnet_mvc_crud.Middleware.Auth;
 
 namespace cs_aspnet_mvc_crud.Controllers
 {
-    public class UserPermissionController : Controller
+    public class UserPermissionController : BaseController
     {
-        private DataBaseEntities entityModel = new DataBaseEntities();
-
         // GET: UserPermission
+        [UserAuthorization(userActionId: 21)]
         public async Task<ActionResult> Index()
         {
             var user_permission = entityModel.UserPermission.Include(u => u.user_action).Include(u => u.user_position);
@@ -18,6 +18,7 @@ namespace cs_aspnet_mvc_crud.Controllers
         }
 
         // GET: UserPermission/Details/5
+        [UserAuthorization(userActionId: 22)]
         public async Task<ActionResult> Details(int? id)
         {
             if (id == null)
@@ -33,6 +34,7 @@ namespace cs_aspnet_mvc_crud.Controllers
         }
 
         // GET: UserPermission/Create
+        [UserAuthorization(userActionId: 23)]
         public ActionResult Create()
         {
             ViewBag.user_action_id = new SelectList(entityModel.UserAction, "id", "name");
@@ -45,6 +47,7 @@ namespace cs_aspnet_mvc_crud.Controllers
         // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [UserAuthorization(userActionId: 23)]
         public async Task<ActionResult> Create([Bind(Include = "id,user_position_id,user_action_id")] user_permission user_permission)
         {
             if (ModelState.IsValid)
@@ -60,6 +63,7 @@ namespace cs_aspnet_mvc_crud.Controllers
         }
 
         // GET: UserPermission/Edit/5
+        [UserAuthorization(userActionId: 24)]
         public async Task<ActionResult> Edit(int? id)
         {
             if (id == null)
@@ -81,6 +85,7 @@ namespace cs_aspnet_mvc_crud.Controllers
         // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [UserAuthorization(userActionId: 24)]
         public async Task<ActionResult> Edit([Bind(Include = "id,user_position_id,user_action_id")] user_permission user_permission)
         {
             if (ModelState.IsValid)
@@ -95,6 +100,7 @@ namespace cs_aspnet_mvc_crud.Controllers
         }
 
         // GET: UserPermission/Delete/5
+        [UserAuthorization(userActionId: 25)]
         public async Task<ActionResult> Delete(int? id)
         {
             if (id == null)
@@ -112,6 +118,7 @@ namespace cs_aspnet_mvc_crud.Controllers
         // POST: UserPermission/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [UserAuthorization(userActionId: 25)]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
             user_permission user_permission = await entityModel.UserPermission.FindAsync(id);

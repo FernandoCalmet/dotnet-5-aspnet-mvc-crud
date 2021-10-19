@@ -3,20 +3,21 @@ using System.Threading.Tasks;
 using System.Net;
 using System.Web.Mvc;
 using cs_aspnet_mvc_crud.Models;
+using cs_aspnet_mvc_crud.Middleware.Auth;
 
 namespace cs_aspnet_mvc_crud.Controllers
 {
-    public class UserPositionController : Controller
+    public class UserPositionController : BaseController
     {
-        private DataBaseEntities entityModel = new DataBaseEntities();
-
         // GET: UserPosition
+        [UserAuthorization(userActionId: 11)]
         public async Task<ActionResult> Index()
         {
             return View(await entityModel.UserPosition.ToListAsync());
         }
 
         // GET: UserPosition/Details/5
+        [UserAuthorization(userActionId: 12)]
         public async Task<ActionResult> Details(int? id)
         {
             if (id == null)
@@ -32,6 +33,7 @@ namespace cs_aspnet_mvc_crud.Controllers
         }
 
         // GET: UserPosition/Create
+        [UserAuthorization(userActionId: 13)]
         public ActionResult Create()
         {
             return View();
@@ -42,6 +44,7 @@ namespace cs_aspnet_mvc_crud.Controllers
         // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [UserAuthorization(userActionId: 13)]
         public async Task<ActionResult> Create([Bind(Include = "id,name,description")] user_position user_position)
         {
             if (ModelState.IsValid)
@@ -55,6 +58,7 @@ namespace cs_aspnet_mvc_crud.Controllers
         }
 
         // GET: UserPosition/Edit/5
+        [UserAuthorization(userActionId: 14)]
         public async Task<ActionResult> Edit(int? id)
         {
             if (id == null)
@@ -74,6 +78,7 @@ namespace cs_aspnet_mvc_crud.Controllers
         // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [UserAuthorization(userActionId: 14)]
         public async Task<ActionResult> Edit([Bind(Include = "id,name,description")] user_position user_position)
         {
             if (ModelState.IsValid)
@@ -86,6 +91,7 @@ namespace cs_aspnet_mvc_crud.Controllers
         }
 
         // GET: UserPosition/Delete/5
+        [UserAuthorization(userActionId: 15)]
         public async Task<ActionResult> Delete(int? id)
         {
             if (id == null)
@@ -103,6 +109,7 @@ namespace cs_aspnet_mvc_crud.Controllers
         // POST: UserPosition/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [UserAuthorization(userActionId: 15)]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
             user_position user_position = await entityModel.UserPosition.FindAsync(id);

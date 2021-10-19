@@ -3,14 +3,14 @@ using System.Threading.Tasks;
 using System.Net;
 using System.Web.Mvc;
 using cs_aspnet_mvc_crud.Models;
+using cs_aspnet_mvc_crud.Middleware.Auth;
 
 namespace cs_aspnet_mvc_crud.Controllers
 {
-    public class ModuleController : Controller
+    public class ModuleController : BaseController
     {
-        private DataBaseEntities entityModel = new DataBaseEntities();
-
         // GET: Module
+        [UserAuthorization(userActionId: 6)]
         public async Task<ActionResult> Index()
         {
             var module = entityModel.Module.Include(m => m.module_category);
@@ -18,6 +18,7 @@ namespace cs_aspnet_mvc_crud.Controllers
         }
 
         // GET: Module/Details/5
+        [UserAuthorization(userActionId: 7)]
         public async Task<ActionResult> Details(int? id)
         {
             if (id == null)
@@ -33,6 +34,7 @@ namespace cs_aspnet_mvc_crud.Controllers
         }
 
         // GET: Module/Create
+        [UserAuthorization(userActionId: 8)]
         public ActionResult Create()
         {
             ViewBag.module_category_id = new SelectList(entityModel.ModuleCategory, "id", "name");
@@ -44,6 +46,7 @@ namespace cs_aspnet_mvc_crud.Controllers
         // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [UserAuthorization(userActionId: 8)]
         public async Task<ActionResult> Create([Bind(Include = "id,name,description,module_category_id")] module module)
         {
             if (ModelState.IsValid)
@@ -58,6 +61,7 @@ namespace cs_aspnet_mvc_crud.Controllers
         }
 
         // GET: Module/Edit/5
+        [UserAuthorization(userActionId: 9)]
         public async Task<ActionResult> Edit(int? id)
         {
             if (id == null)
@@ -78,6 +82,7 @@ namespace cs_aspnet_mvc_crud.Controllers
         // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [UserAuthorization(userActionId: 9)]
         public async Task<ActionResult> Edit([Bind(Include = "id,name,description,module_category_id")] module module)
         {
             if (ModelState.IsValid)
@@ -91,6 +96,7 @@ namespace cs_aspnet_mvc_crud.Controllers
         }
 
         // GET: Module/Delete/5
+        [UserAuthorization(userActionId: 10)]
         public async Task<ActionResult> Delete(int? id)
         {
             if (id == null)
@@ -108,6 +114,7 @@ namespace cs_aspnet_mvc_crud.Controllers
         // POST: Module/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [UserAuthorization(userActionId: 10)]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
             module module = await entityModel.Module.FindAsync(id);

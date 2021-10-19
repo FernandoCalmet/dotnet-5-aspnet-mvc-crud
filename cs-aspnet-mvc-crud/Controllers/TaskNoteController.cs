@@ -3,14 +3,14 @@ using System.Threading.Tasks;
 using System.Net;
 using System.Web.Mvc;
 using cs_aspnet_mvc_crud.Models;
+using cs_aspnet_mvc_crud.Middleware.Auth;
 
 namespace cs_aspnet_mvc_crud.Controllers
 {
-    public class TaskNoteController : Controller
+    public class TaskNoteController : BaseController
     {
-        private DataBaseEntities entityModel = new DataBaseEntities();
-
         // GET: TaskNote
+        [UserAuthorization(userActionId: 41)]
         public async Task<ActionResult> Index()
         {
             var task_note = entityModel.TaskNote.Include(t => t.note).Include(t => t.task);
@@ -18,6 +18,7 @@ namespace cs_aspnet_mvc_crud.Controllers
         }
 
         // GET: TaskNote/Details/5
+        [UserAuthorization(userActionId: 42)]
         public async Task<ActionResult> Details(int? id)
         {
             if (id == null)
@@ -33,6 +34,7 @@ namespace cs_aspnet_mvc_crud.Controllers
         }
 
         // GET: TaskNote/Create
+        [UserAuthorization(userActionId: 43)]
         public ActionResult Create()
         {
             ViewBag.note_id = new SelectList(entityModel.Note, "id", "name");
@@ -45,6 +47,7 @@ namespace cs_aspnet_mvc_crud.Controllers
         // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [UserAuthorization(userActionId: 43)]
         public async Task<ActionResult> Create([Bind(Include = "id,task_id,note_id")] task_note task_note)
         {
             if (ModelState.IsValid)
@@ -60,6 +63,7 @@ namespace cs_aspnet_mvc_crud.Controllers
         }
 
         // GET: TaskNote/Edit/5
+        [UserAuthorization(userActionId: 44)]
         public async Task<ActionResult> Edit(int? id)
         {
             if (id == null)
@@ -81,6 +85,7 @@ namespace cs_aspnet_mvc_crud.Controllers
         // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [UserAuthorization(userActionId: 44)]
         public async Task<ActionResult> Edit([Bind(Include = "id,task_id,note_id")] task_note task_note)
         {
             if (ModelState.IsValid)
@@ -95,6 +100,7 @@ namespace cs_aspnet_mvc_crud.Controllers
         }
 
         // GET: TaskNote/Delete/5
+        [UserAuthorization(userActionId: 45)]
         public async Task<ActionResult> Delete(int? id)
         {
             if (id == null)
@@ -112,6 +118,7 @@ namespace cs_aspnet_mvc_crud.Controllers
         // POST: TaskNote/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [UserAuthorization(userActionId: 45)]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
             task_note task_note = await entityModel.TaskNote.FindAsync(id);

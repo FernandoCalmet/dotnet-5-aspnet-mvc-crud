@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace cs_aspnet_mvc_crud.Middleware.Auth
 {
-    public class Session : ActionFilterAttribute
+    public class UserSession : ActionFilterAttribute
     {
         private user userModel;
 
