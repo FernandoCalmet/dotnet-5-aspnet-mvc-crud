@@ -1,7 +1,9 @@
 ﻿
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Not logged";
+    ViewBag.Message = "To use this system you must first authenticate yourself.";
 }
 
-<h2>Index</h2>
+<h2>@ViewBag.Title</h2>
 
+<p>@ViewBag.Message</p>
