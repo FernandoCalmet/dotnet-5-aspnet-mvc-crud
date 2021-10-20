@@ -27,8 +27,9 @@ namespace cs_aspnet_mvc_crud.Middleware.Auth
                     }
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                Console.WriteLine(ex);
                 filterContext.Result = new RedirectResult("~/Auth/Login");
             }
         }

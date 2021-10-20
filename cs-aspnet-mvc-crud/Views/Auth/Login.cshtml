@@ -8,7 +8,13 @@
     <form action="@Url.Content("~/Auth/Login")" method="post">
         <i class="bi bi-person-check" style="font-size: 60px"></i>
         <h1 class="h3 mb-3 fw-normal">@ViewBag.Title</h1>
-
+        @if (ViewBag.Error != null)
+        {
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                <strong>@ViewBag.Error</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        }
         <div class="form-floating">
             <input type="text" class="form-control" name="field_user" id="field_user" placeholder="User" required>
             <label for="field_user">User</label>
@@ -21,7 +27,7 @@
         <button class="w-100 btn btn-lg btn-primary" type="submit">Sign Up</button>
         <p class="mt-5 text-muted">&copy; @DateTime.Now.Year <a href="/">ASPNET MVC System</a>.</p>
         <p class="mb-3 text-muted">Developed by <a href="https://www.linkedin.com/in/fernandocalmet/">Fernando Calmet R.</a></p>
-</form>
+    </form>
 </main>
 
 @section auth_css{
