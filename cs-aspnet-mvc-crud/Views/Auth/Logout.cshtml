@@ -1,9 +1,14 @@
 ﻿
 @{
-    ViewBag.Title = "Logout";
+    ViewBag.Title = "Sign Out";
     ViewBag.Message = "Your session has expired. Thank you for using the system.";
+    Layout = "~/Views/Shared/_LayoutAuth.cshtml";
 }
 
-<h2>Sign Out</h2>
+<h2>@ViewBag.Title</h2>
 
 <p>@ViewBag.Message</p>
+
+@section auth_css{
+    @Styles.Render("~/bundles/auth/css")
+}

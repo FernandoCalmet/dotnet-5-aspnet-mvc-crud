@@ -2,8 +2,13 @@
 @{
     ViewBag.Title = "Not logged";
     ViewBag.Message = "To use this system you must first authenticate yourself.";
+    Layout = "~/Views/Shared/_LayoutAuth.cshtml";
 }
 
 <h2>@ViewBag.Title</h2>
 
 <p>@ViewBag.Message</p>
+
+@section auth_css{
+    @Styles.Render("~/bundles/auth/css")
+}

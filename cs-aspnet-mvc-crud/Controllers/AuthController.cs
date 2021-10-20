@@ -29,8 +29,7 @@ namespace cs_aspnet_mvc_crud.Controllers
                     var userModel = (
                         from u in entityModel.User
                         where
-                            u.email == userField.Trim()
-                            || u.username == userField.Trim()
+                            u.email == userField.Trim() || u.username == userField.Trim()
                             && u.password == passField.Trim()
                         select u
                     ).FirstOrDefault();

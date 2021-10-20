@@ -1,8 +1,8 @@
 ﻿using cs_aspnet_mvc_crud.Models;
 using System;
+using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using System.Linq;
 
 namespace cs_aspnet_mvc_crud.Middleware.Auth
 {
