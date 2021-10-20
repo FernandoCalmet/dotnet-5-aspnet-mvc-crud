@@ -1,7 +1,29 @@
 ﻿
 @{
-    ViewBag.Title = "Login";
+    ViewBag.Title = "User Login Authentication";
+    Layout = "~/Views/Shared/_LayoutAuth.cshtml";
 }
 
-<h2>Login</h2>
+<main class="form-signin text-center">
+    <form action="@Url.Content("~/Auth/Login")" method="post">
+        <i class="bi bi-person-check" style="font-size: 60px"></i>
+        <h1 class="h3 mb-3 fw-normal">@ViewBag.Title</h1>
 
+        <div class="form-floating">
+            <input type="email" class="form-control" name="field_user" id="field_user" placeholder="name@example.com" required>
+            <label for="txtUsuario">Email</label>
+        </div>
+        <div class="form-floating">
+            <input type="password" class="form-control" name="field_pass" id="field_pass" placeholder="Password" required>
+            <label for="txtClave">Password</label>
+        </div>
+
+        <button class="w-100 btn btn-lg btn-primary" type="submit">Sign Up</button>
+        <p class="mt-5 text-muted">&copy; @DateTime.Now.Year <a href="/">ASPNET MVC System</a>.</p>
+        <p class="mb-3 text-muted">Developed by <a href="https://www.linkedin.com/in/fernandocalmet/">Fernando Calmet R.</a></p>
+</form>
+</main>
+
+@section auth_css{
+    @Styles.Render("~/bundles/auth/css")
+}

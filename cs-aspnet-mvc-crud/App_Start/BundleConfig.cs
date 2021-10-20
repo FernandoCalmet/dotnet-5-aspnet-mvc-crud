@@ -26,7 +26,9 @@ namespace cs_aspnet_mvc_crud
 
             bundles.Add(new StyleBundle("~/bundles/css").Include(
                       "~/Content/bootstrap.min.css",
-                      "~/Content/site.css"));
+                      "~/Content/DefaultTheme/site.css"));
+
+            bundles.Add(new StyleBundle("~/bundles/auth/css").Include("~/Content/DefaultTheme/auth.css"));
         }
     }
 }
