@@ -6,33 +6,31 @@ namespace cs_aspnet_mvc_crud.Controllers
 {
     public class AuthController : Controller
     {
-        // GET: Auth
+        //GET: Auth
         public ActionResult Index()
         {
             return View();
         }
 
-        // GET: Login
+        // GET: Auth Login
         public ActionResult Login()
         {
             return View();
         }
 
-        // POST: Login
+        // POST: Auth Login
         [HttpPost]
-        public ActionResult Login(string userField, string passField)
+        [ValidateAntiForgeryToken]
+        public ActionResult Login(string field_user, string field_pass)
         {
             try
             {
                 using (Models.DataBaseEntities entityModel = new Models.DataBaseEntities())
                 {
                     var userModel = (
-                        from u in entityModel.User
-                        where
-                            u.email == userField.Trim() || u.username == userField.Trim()
-                            && u.password == passField.Trim()
-                        select u
-                    ).FirstOrDefault();
+                        from u in entityModel.User 
+                        where u.email == field_user.Trim() || u.username == field_user.Trim() && u.password == field_pass.Trim()
+                        select u).FirstOrDefault();
 
                     if (userModel == null)
                     {
@@ -51,7 +49,7 @@ namespace cs_aspnet_mvc_crud.Controllers
             }
         }
 
-        // GET: Logout
+        // GET: Auth Logout
         public ActionResult Logout()
         {
             Session["field_user"] = null;

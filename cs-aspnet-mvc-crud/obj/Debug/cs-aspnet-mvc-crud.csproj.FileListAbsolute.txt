@@ -72,3 +72,7 @@ D:\Github\FernandoCalmet\cs-aspnet-mvc-crud\cs-aspnet-mvc-crud\obj\Debug\cs-aspn
 D:\Github\FernandoCalmet\cs-aspnet-mvc-crud\cs-aspnet-mvc-crud\obj\Debug\cs-aspnet-mvc-crud.dll
 D:\Github\FernandoCalmet\cs-aspnet-mvc-crud\cs-aspnet-mvc-crud\obj\Debug\cs-aspnet-mvc-crud.pdb
 D:\Github\FernandoCalmet\cs-aspnet-mvc-crud\cs-aspnet-mvc-crud\obj\Debug\cs-aspnet-mvc-crud.csproj.AssemblyReference.cache
+D:\Github\FernandoCalmet\cs-aspnet-mvc-crud\cs-aspnet-mvc-crud\bin\SendGrid.dll
+D:\Github\FernandoCalmet\cs-aspnet-mvc-crud\cs-aspnet-mvc-crud\bin\StarkbankEcdsa.dll
+D:\Github\FernandoCalmet\cs-aspnet-mvc-crud\cs-aspnet-mvc-crud\bin\SendGrid.pdb
+D:\Github\FernandoCalmet\cs-aspnet-mvc-crud\cs-aspnet-mvc-crud\bin\SendGrid.xml
