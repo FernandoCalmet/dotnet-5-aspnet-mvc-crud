@@ -29,6 +29,12 @@ namespace cs_aspnet_mvc_crud
                       "~/Content/DefaultTheme/site.css"));
 
             bundles.Add(new StyleBundle("~/bundles/auth/css").Include("~/Content/DefaultTheme/auth.css"));
+
+            bundles.Add(new StyleBundle("~/bundles/carousel/css").Include("~/Content/DefaultTheme/carousel.css"));
+
+            bundles.Add(new StyleBundle("~/bundles/headers/css").Include("~/Content/DefaultTheme/headers.css"));
+
+            bundles.Add(new StyleBundle("~/bundles/siderbars/css").Include("~/Content/DefaultTheme/siderbars.css"));
         }
     }
 }
