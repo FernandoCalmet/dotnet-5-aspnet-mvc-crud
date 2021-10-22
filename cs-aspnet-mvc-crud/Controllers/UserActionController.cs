@@ -1,9 +1,12 @@
-﻿using System.Data.Entity;
+﻿using System;
+using System.Data.Entity;
 using System.Threading.Tasks;
 using System.Net;
 using System.Web.Mvc;
+using System.Linq;
 using cs_aspnet_mvc_crud.Models;
 using cs_aspnet_mvc_crud.Middleware.Auth;
+using PagedList;
 
 namespace cs_aspnet_mvc_crud.Controllers
 {
@@ -11,7 +14,57 @@ namespace cs_aspnet_mvc_crud.Controllers
     {
         // GET: UserAction
         [UserAuthorization(userActionId: 16)]
-        public async Task<ActionResult> Index()
+        public ActionResult Index(string sortOrder, string currentFilter, string searchString, int? page)
+        {
+            ViewBag.CurrentSort = sortOrder;
+            ViewBag.IdSortParm = String.IsNullOrEmpty(sortOrder) ? "id_desc" : "";
+            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewBag.ModuleNameSortParm = String.IsNullOrEmpty(sortOrder) ? "module_name_desc" : "";
+
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            ViewBag.CurrentFilter = searchString;
+
+            var usersActions = from o in entityModel.UserAction select o;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                usersActions = usersActions.Where(o =>
+                    o.name.Contains(searchString)
+                    || o.module.name.Contains(searchString)
+                );
+            }
+
+            switch (sortOrder)
+            {
+                case "id_desc":
+                    usersActions = usersActions.OrderByDescending(o => o.id);
+                    break;
+                case "name_desc":
+                    usersActions = usersActions.OrderByDescending(o => o.name);
+                    break;
+                case "module_name_desc":
+                    usersActions = usersActions.OrderByDescending(o => o.module.name);
+                    break;
+                default:
+                    usersActions = usersActions.OrderBy(o => o.id);
+                    break;
+            }
+            int pageNumber = (page ?? 1);
+
+            return View(usersActions.ToPagedList(pageNumber, this.pageSize));
+        }
+
+        // GET: UserAction
+        [UserAuthorization(userActionId: 16)]
+        public async Task<ActionResult> GetAll()
         {
             var user_action = entityModel.UserAction.Include(u => u.module);
             return View(await user_action.ToListAsync());

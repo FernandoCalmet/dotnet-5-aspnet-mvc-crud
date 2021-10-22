@@ -1,9 +1,13 @@
-﻿using System.Data.Entity;
+﻿using System;
+using System.Data.Entity;
 using System.Threading.Tasks;
 using System.Net;
 using System.Web.Mvc;
+using System.Linq;
 using cs_aspnet_mvc_crud.Models;
 using cs_aspnet_mvc_crud.Middleware.Auth;
+using PagedList;
+
 
 namespace cs_aspnet_mvc_crud.Controllers
 {
@@ -11,7 +15,57 @@ namespace cs_aspnet_mvc_crud.Controllers
     {
         // GET: TaskNote
         [UserAuthorization(userActionId: 41)]
-        public async Task<ActionResult> Index()
+        public ActionResult Index(string sortOrder, string currentFilter, string searchString, int? page)
+        {
+            ViewBag.CurrentSort = sortOrder;
+            ViewBag.IdSortParm = String.IsNullOrEmpty(sortOrder) ? "id_desc" : "";
+            ViewBag.TaskNameSortParm = String.IsNullOrEmpty(sortOrder) ? "task_name_desc" : "";
+            ViewBag.NoteNameSortParm = String.IsNullOrEmpty(sortOrder) ? "note_name_desc" : "";
+
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            ViewBag.CurrentFilter = searchString;
+
+            var tasksNotes = from o in entityModel.TaskNote select o;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                tasksNotes = tasksNotes.Where(o =>
+                    o.task.name.Contains(searchString)
+                    || o.note.name.Contains(searchString)
+                );
+            }
+
+            switch (sortOrder)
+            {
+                case "id_desc":
+                    tasksNotes = tasksNotes.OrderByDescending(o => o.id);
+                    break;
+                case "task_name_desc":
+                    tasksNotes = tasksNotes.OrderByDescending(o => o.task.name);
+                    break;
+                case "note_name_desc":
+                    tasksNotes = tasksNotes.OrderByDescending(o => o.note.name);
+                    break;
+                default:
+                    tasksNotes = tasksNotes.OrderBy(o => o.id);
+                    break;
+            }
+            int pageNumber = (page ?? 1);
+
+            return View(tasksNotes.ToPagedList(pageNumber, this.pageSize));
+        }
+
+        // GET: TaskNote
+        [UserAuthorization(userActionId: 41)]
+        public async Task<ActionResult> GetAll()
         {
             var task_note = entityModel.TaskNote.Include(t => t.note).Include(t => t.task);
             return View(await task_note.ToListAsync());
