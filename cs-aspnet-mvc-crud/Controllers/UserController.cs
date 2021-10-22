@@ -124,6 +124,13 @@ namespace cs_aspnet_mvc_crud.Controllers
             if (ModelState.IsValid)
             {
                 entityModel.User.Add(user);
+                user.email_confirmed = false;
+                user.security_stamp = null;
+                user.two_factor_enabled = false;
+                user.lockout_end_date_utc = null;
+                user.lockout_enabled = false;
+                user.access_failed_count = 0;
+                user.created_at = DateTime.Now.ToUniversalTime();
                 await entityModel.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
