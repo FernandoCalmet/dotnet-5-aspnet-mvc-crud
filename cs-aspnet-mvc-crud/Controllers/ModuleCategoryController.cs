@@ -1,19 +1,65 @@
-﻿using System.Data.Entity;
+﻿using System;
+using System.Data.Entity;
 using System.Threading.Tasks;
 using System.Net;
 using System.Web.Mvc;
+using System.Linq;
 using cs_aspnet_mvc_crud.Models;
 using cs_aspnet_mvc_crud.Middleware.Auth;
+using PagedList;
 
 namespace cs_aspnet_mvc_crud.Controllers
 {
     public class ModuleCategoryController : BaseController
     {
         // GET: ModuleCategory
+        //[UserAuthorization(userActionId: 1)]
+        //public async Task<ActionResult> Index()
+        //{
+        //    return View(await entityModel.ModuleCategory.ToListAsync());
+        //}
+
+        // GET: ModuleCategory
         [UserAuthorization(userActionId: 1)]
-        public async Task<ActionResult> Index()
+        public ActionResult Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
-            return View(await entityModel.ModuleCategory.ToListAsync());
+            ViewBag.CurrentSort = sortOrder;
+            ViewBag.IdSortParm = String.IsNullOrEmpty(sortOrder) ? "id_desc" : "";
+            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            ViewBag.CurrentFilter = searchString;
+
+            var modulesCategories = from o in entityModel.ModuleCategory select o;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                modulesCategories = modulesCategories.Where(o => o.name.Contains(searchString));
+            }
+
+            switch (sortOrder)
+            {
+                case "id_desc":
+                    modulesCategories = modulesCategories.OrderByDescending(o => o.id);
+                    break;
+                case "name_desc":
+                    modulesCategories = modulesCategories.OrderByDescending(o => o.name);
+                    break;
+                default:
+                    modulesCategories = modulesCategories.OrderBy(o => o.id);
+                    break;
+            }
+            int pageNumber = (page ?? 1);
+
+            return View(modulesCategories.ToPagedList(pageNumber, this.pageSize));
         }
 
         // GET: ModuleCategory/Details/5
