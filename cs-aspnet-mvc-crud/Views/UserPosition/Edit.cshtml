@@ -2,45 +2,53 @@
 
 @{
     ViewBag.Title = "Edit";
+    ViewBag.Model = "User Position";
 }
-
-<h2>Edit</h2>
-
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>user_position</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.id)
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.name, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.name, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.name, "", new { @class = "text-danger" })
+    <div class="col mx-auto">
+        <div class="p-4 p-md-5 border rounded-3 bg-light">
+            <div class="alert alert-danger" role="alert">
+                Are you sure you want to delete this @ViewBag.Model?
             </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.description, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.description, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.description, "", new { @class = "text-danger" })
+            <div class="accordion mb-3" id="accordionOne">
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingOne">
+                        <button class="accordion-button text-white bg-danger" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                            @ViewBag.Title this @ViewBag.Model
+                        </button>
+                    </h2>
+                    <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionOne">
+                        <div class="accordion-body">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-3"><b>Id</b></div>
+                                    <div class="col">@Html.DisplayFor(model => model.id)</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-3"><b>Name</b></div>
+                                    <div class="col">@Html.DisplayFor(model => model.name)</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-3"><b>Description</b></div>
+                                    <div class="col">@Html.DisplayFor(model => model.description)</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    @Html.ActionLink("Cancel", "Index", null, new { @class = "btn btn-lg btn-dark" })
+                    <input type="submit" value="Delete" class="btn btn-lg btn-danger" />
+                </div>
             </div>
+
         </div>
     </div>
 }
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
