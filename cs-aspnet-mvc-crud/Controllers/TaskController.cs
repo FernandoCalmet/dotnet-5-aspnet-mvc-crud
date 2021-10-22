@@ -19,8 +19,6 @@ namespace cs_aspnet_mvc_crud.Controllers
             ViewBag.CurrentSort = sortOrder;
             ViewBag.IdSortParm = String.IsNullOrEmpty(sortOrder) ? "id_desc" : "";
             ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
-            ViewBag.DescriptionSortParm = String.IsNullOrEmpty(sortOrder) ? "description_desc" : "";
-            ViewBag.StatusSortParm = String.IsNullOrEmpty(sortOrder) ? "status_desc" : "";
             ViewBag.CreatedAtSortParm = String.IsNullOrEmpty(sortOrder) ? "created_at_desc" : "";
             ViewBag.UpdatedAtSortParm = String.IsNullOrEmpty(sortOrder) ? "updated_at_desc" : "";
             ViewBag.UserUsernameSortParm = String.IsNullOrEmpty(sortOrder) ? "user_username_desc" : "";
@@ -43,7 +41,6 @@ namespace cs_aspnet_mvc_crud.Controllers
             {
                 tasks = tasks.Where(o =>
                     o.name.Contains(searchString)
-                    || o.description.Contains(searchString)
                     || o.user.username.Contains(searchString)
                     || o.user.email.Contains(searchString)
                 );
@@ -56,9 +53,6 @@ namespace cs_aspnet_mvc_crud.Controllers
                     break;
                 case "name_desc":
                     tasks = tasks.OrderByDescending(o => o.name);
-                    break;
-                case "description_desc":
-                    tasks = tasks.OrderByDescending(o => o.description);
                     break;
                 case "status_desc":
                     tasks = tasks.OrderByDescending(o => o.status);

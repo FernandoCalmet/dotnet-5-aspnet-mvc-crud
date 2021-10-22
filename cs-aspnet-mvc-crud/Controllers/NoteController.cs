@@ -19,7 +19,6 @@ namespace cs_aspnet_mvc_crud.Controllers
             ViewBag.CurrentSort = sortOrder;
             ViewBag.IdSortParm = String.IsNullOrEmpty(sortOrder) ? "id_desc" : "";
             ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
-            ViewBag.DescriptionSortParm = String.IsNullOrEmpty(sortOrder) ? "description_desc" : "";
             ViewBag.CreatedAtSortParm = String.IsNullOrEmpty(sortOrder) ? "created_at_desc" : "";
             ViewBag.UpdatedAtSortParm = String.IsNullOrEmpty(sortOrder) ? "updated_at_desc" : "";
 
@@ -38,10 +37,7 @@ namespace cs_aspnet_mvc_crud.Controllers
 
             if (!String.IsNullOrEmpty(searchString))
             {
-                notes = notes.Where(o =>
-                    o.name.Contains(searchString)
-                    || o.description.Contains(searchString)
-                );
+                notes = notes.Where(o => o.name.Contains(searchString));
             }
 
             switch (sortOrder)
@@ -51,9 +47,6 @@ namespace cs_aspnet_mvc_crud.Controllers
                     break;
                 case "name_desc":
                     notes = notes.OrderByDescending(o => o.name);
-                    break;
-                case "description_desc":
-                    notes = notes.OrderByDescending(o => o.description);
                     break;
                 case "created_at_desc":
                     notes = notes.OrderByDescending(o => o.created_at);

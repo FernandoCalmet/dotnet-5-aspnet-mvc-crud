@@ -19,7 +19,6 @@ namespace cs_aspnet_mvc_crud.Controllers
             ViewBag.CurrentSort = sortOrder;
             ViewBag.IdSortParm = String.IsNullOrEmpty(sortOrder) ? "id_desc" : "";
             ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
-            ViewBag.DescriptionSortParm = String.IsNullOrEmpty(sortOrder) ? "description_desc" : "";
 
             if (searchString != null)
             {
@@ -36,10 +35,7 @@ namespace cs_aspnet_mvc_crud.Controllers
 
             if (!String.IsNullOrEmpty(searchString))
             {
-                usersPositions = usersPositions.Where(o =>
-                    o.name.Contains(searchString)
-                    || o.description.Contains(searchString)
-                );
+                usersPositions = usersPositions.Where(o => o.name.Contains(searchString));
             }
 
             switch (sortOrder)
@@ -49,9 +45,6 @@ namespace cs_aspnet_mvc_crud.Controllers
                     break;
                 case "name_desc":
                     usersPositions = usersPositions.OrderByDescending(o => o.name);
-                    break;
-                case "description_desc":
-                    usersPositions = usersPositions.OrderByDescending(o => o.description);
                     break;
                 default:
                     usersPositions = usersPositions.OrderBy(o => o.id);
