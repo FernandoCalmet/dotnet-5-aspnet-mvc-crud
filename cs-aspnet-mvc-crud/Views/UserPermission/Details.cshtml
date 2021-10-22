@@ -2,33 +2,40 @@
 
 @{
     ViewBag.Title = "Details";
+    ViewBag.Model = "User Permission";
 }
 
-<h2>Details</h2>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="col mx-auto">
+        <div class="p-4 p-md-5 border rounded-3 bg-light">
+            <h4>@ViewBag.Title @ViewBag.Model</h4>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-<div>
-    <h4>user_permission</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.user_action.name)
-        </dt>
+            <div class="form-group mb-3">
 
-        <dd>
-            @Html.DisplayFor(model => model.user_action.name)
-        </dd>
+                <div class="control-label">User Position</div>
+                <div class="col-md-10">
+                    @Html.DropDownList("user_position_id", null, htmlAttributes: new { @class = "form-select" })
+                    @Html.ValidationMessageFor(model => model.user_position_id, "", new { @class = "text-danger" })
+                </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.user_position.name)
-        </dt>
+                <div class="control-label">User Action</div>
+                <div class="col-md-10">
+                    @Html.DropDownList("user_action_id", null, htmlAttributes: new { @class = "form-select" })
+                    @Html.ValidationMessageFor(model => model.user_action_id, "", new { @class = "text-danger" })
+                </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.user_position.name)
-        </dd>
+            </div>
 
-    </dl>
-</div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    @Html.ActionLink("Cancel", "Index", null, new { @class = "btn btn-lg btn-dark" })
+                    <input type="submit" value="Add" class="btn btn-lg btn-success" />
+                </div>
+            </div>
+        </div>
+    </div>
+}

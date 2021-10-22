@@ -2,39 +2,107 @@
 
 @{
     ViewBag.Title = "Delete";
+    ViewBag.Model = "User Permission";
+    ViewBag.ModelRelation1 = "User Position";
+    ViewBag.ModelRelation2 = "User Action";
 }
 
-<h2>Delete</h2>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="col mx-auto">
+        <div class="p-4 p-md-5 border rounded-3 bg-light">
+            <div class="alert alert-danger" role="alert">
+                Are you sure you want to delete this @ViewBag.Model?
+            </div>
 
-<h3>Are you sure you want to delete this?</h3>
-<div>
-    <h4>user_permission</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.user_action.name)
-        </dt>
+            <div class="accordion mb-3" id="accordionOne">
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingOne">
+                        <button class="accordion-button text-white bg-danger" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                            @ViewBag.Title this @ViewBag.Model
+                        </button>
+                    </h2>
+                    <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionOne">
+                        <div class="accordion-body">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-3"><b>Id</b></div>
+                                    <div class="col">@Html.DisplayFor(model => model.id)</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-3"><b>Position Id</b></div>
+                                    <div class="col">@Html.DisplayFor(model => model.user_position_id)</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-3"><b>Action Id</b></div>
+                                    <div class="col">@Html.DisplayFor(model => model.user_action_id)</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.user_action.name)
-        </dd>
+            <div class="accordion mb-3" id="accordionTwo">
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingTwo">
+                        <button class="accordion-button text-white bg-dark" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                            Related to @ViewBag.ModelRelation
+                        </button>
+                    </h2>
+                    <div id="collapseTwo" class="accordion-collapse collapse show" aria-labelledby="headingTwo" data-bs-parent="#accordionTwo">
+                        <div class="accordion-body">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-3"><b>Id</b></div>
+                                    <div class="col">@Html.DisplayFor(model => model.user_position.id)</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-3"><b>Name</b></div>
+                                    <div class="col">@Html.DisplayFor(model => model.user_position.name)</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-3"><b>Description</b></div>
+                                    <div class="col">@Html.DisplayFor(model => model.user_position.description)</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.user_position.name)
-        </dt>
+            <div class="accordion mb-3" id="accordionThree">
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingThree">
+                        <button class="accordion-button text-white bg-dark" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
+                            Related to @ViewBag.ModelRelation
+                        </button>
+                    </h2>
+                    <div id="collapseThree" class="accordion-collapse collapse show" aria-labelledby="headingThree" data-bs-parent="#accordionThree">
+                        <div class="accordion-body">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-3"><b>Id</b></div>
+                                    <div class="col">@Html.DisplayFor(model => model.user_action.id)</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-3"><b>Name</b></div>
+                                    <div class="col">@Html.DisplayFor(model => model.user_action.name)</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.user_position.name)
-        </dd>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    @Html.ActionLink("Cancel", "Index", null, new { @class = "btn btn-lg btn-dark" })
+                    <input type="submit" value="Delete" class="btn btn-lg btn-danger" />
+                </div>
+            </div>
 
-    </dl>
-
-    @using (Html.BeginForm()) {
-        @Html.AntiForgeryToken()
-
-        <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
         </div>
-    }
-</div>
+    </div>
+}
