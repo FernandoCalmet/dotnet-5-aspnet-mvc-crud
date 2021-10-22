@@ -10,7 +10,7 @@ namespace cs_aspnet_mvc_crud.Middleware.Auth
     public class UserAuthorization : AuthorizeAttribute
     {
         private user userModel;
-        private DataBaseEntities entityModel = new DataBaseEntities();
+        private DBEntities entityModel = new DBEntities();
         private int userActionId;
 
         public UserAuthorization(int userActionId = 0)

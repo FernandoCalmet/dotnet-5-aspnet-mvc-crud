@@ -22,7 +22,6 @@ namespace cs_aspnet_mvc_crud.Controllers
             ViewBag.FirstNameSortParm = String.IsNullOrEmpty(sortOrder) ? "first_name_desc" : "";
             ViewBag.LastNameSortParm = String.IsNullOrEmpty(sortOrder) ? "last_name_desc" : "";
             ViewBag.EmailSortParm = String.IsNullOrEmpty(sortOrder) ? "email_desc" : "";
-            ViewBag.BirthdaySortParm = String.IsNullOrEmpty(sortOrder) ? "birthday_desc" : "";
             ViewBag.CreatedAtSortParm = String.IsNullOrEmpty(sortOrder) ? "created_at_desc" : "";
             ViewBag.UserPositionNameSortParm = String.IsNullOrEmpty(sortOrder) ? "user_position_name_desc" : "";
 
@@ -66,9 +65,6 @@ namespace cs_aspnet_mvc_crud.Controllers
                     break;
                 case "email_desc":
                     users = users.OrderByDescending(o => o.email);
-                    break;
-                case "birthday_desc":
-                    users = users.OrderByDescending(o => o.birthdate);
                     break;
                 case "created_at_desc":
                     users = users.OrderByDescending(o => o.created_at);
@@ -123,7 +119,7 @@ namespace cs_aspnet_mvc_crud.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [UserAuthorization(userActionId: 28)]
-        public async Task<ActionResult> Create([Bind(Include = "id,username,password,first_name,last_name,email,picture,birthdate,created_at,user_position_id")] user user)
+        public async Task<ActionResult> Create([Bind(Include = "id,username,email,email_confirmed,password_hash,security_stamp,two_factor_enabled,lockout_end_date_utc,lockout_enabled,access_failed,first_name,last_name,picture,birthdate,created_at,user_position_id")] user user)
         {
             if (ModelState.IsValid)
             {
@@ -159,7 +155,7 @@ namespace cs_aspnet_mvc_crud.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [UserAuthorization(userActionId: 29)]
-        public async Task<ActionResult> Edit([Bind(Include = "id,username,password,first_name,last_name,email,picture,birthdate,created_at,user_position_id")] user user)
+        public async Task<ActionResult> Edit([Bind(Include = "id,username,email,email_confirmed,password_hash,security_stamp,two_factor_enabled,lockout_end_date_utc,lockout_enabled,access_failed,first_name,last_name,picture,birthdate,user_position_id")] user user)
         {
             if (ModelState.IsValid)
             {

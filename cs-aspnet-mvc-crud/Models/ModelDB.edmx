@@ -52,7 +52,6 @@
           <Property Name="status" Type="int" Nullable="false" />
           <Property Name="created_at" Type="datetime" Nullable="false" />
           <Property Name="updated_at" Type="datetime" />
-          <Property Name="user_id" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="task_note">
           <Key>
@@ -61,6 +60,7 @@
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="task_id" Type="int" Nullable="false" />
           <Property Name="note_id" Type="int" Nullable="false" />
+          <Property Name="user_id" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="user">
           <Key>
@@ -68,10 +68,16 @@
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="username" Type="varchar" MaxLength="16" Nullable="false" />
-          <Property Name="password" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="email" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="email_confirmed" Type="bit" />
+          <Property Name="password_hash" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="security_stamp" Type="nvarchar(max)" />
+          <Property Name="two_factor_enabled" Type="bit" Nullable="false" />
+          <Property Name="lockout_end_date_utc" Type="datetime" />
+          <Property Name="lockout_enabled" Type="bit" Nullable="false" />
+          <Property Name="access_failed_count" Type="int" Nullable="false" />
           <Property Name="first_name" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="last_name" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="email" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="picture" Type="varbinary(max)" />
           <Property Name="birthdate" Type="date" Nullable="false" />
           <Property Name="created_at" Type="datetime" Nullable="false" />
@@ -137,14 +143,14 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_task_user">
+        <Association Name="FK_task_note_user">
           <End Role="user" Type="Self.user" Multiplicity="1" />
-          <End Role="task" Type="Self.task" Multiplicity="*" />
+          <End Role="task_note" Type="Self.task_note" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="user">
               <PropertyRef Name="id" />
             </Principal>
-            <Dependent Role="task">
+            <Dependent Role="task_note">
               <PropertyRef Name="user_id" />
             </Dependent>
           </ReferentialConstraint>
@@ -220,9 +226,9 @@
             <End Role="task" EntitySet="task" />
             <End Role="task_note" EntitySet="task_note" />
           </AssociationSet>
-          <AssociationSet Name="FK_task_user" Association="Self.FK_task_user">
+          <AssociationSet Name="FK_task_note_user" Association="Self.FK_task_note_user">
             <End Role="user" EntitySet="user" />
-            <End Role="task" EntitySet="task" />
+            <End Role="task_note" EntitySet="task_note" />
           </AssociationSet>
           <AssociationSet Name="FK_user_action_module" Association="Self.FK_user_action_module">
             <End Role="module" EntitySet="module" />
@@ -297,9 +303,7 @@
           <Property Name="status" Type="Int32" Nullable="false" />
           <Property Name="created_at" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="updated_at" Type="DateTime" Precision="3" />
-          <Property Name="user_id" Type="Int32" Nullable="false" />
           <NavigationProperty Name="task_note" Relationship="Self.FK_task_note_task" FromRole="task" ToRole="task_note" />
-          <NavigationProperty Name="user" Relationship="Self.FK_task_user" FromRole="task" ToRole="user" />
         </EntityType>
         <EntityType Name="task_note">
           <Key>
@@ -308,8 +312,10 @@
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="task_id" Type="Int32" Nullable="false" />
           <Property Name="note_id" Type="Int32" Nullable="false" />
+          <Property Name="user_id" Type="Int32" Nullable="false" />
           <NavigationProperty Name="note" Relationship="Self.FK_task_note_note" FromRole="task_note" ToRole="note" />
           <NavigationProperty Name="task" Relationship="Self.FK_task_note_task" FromRole="task_note" ToRole="task" />
+          <NavigationProperty Name="user" Relationship="Self.FK_task_note_user" FromRole="task_note" ToRole="user" />
         </EntityType>
         <EntityType Name="user">
           <Key>
@@ -317,15 +323,21 @@
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="username" Type="String" MaxLength="16" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="password" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="email_confirmed" Type="Boolean" />
+          <Property Name="password_hash" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="security_stamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="two_factor_enabled" Type="Boolean" Nullable="false" />
+          <Property Name="lockout_end_date_utc" Type="DateTime" Precision="3" />
+          <Property Name="lockout_enabled" Type="Boolean" Nullable="false" />
+          <Property Name="access_failed_count" Type="Int32" Nullable="false" />
           <Property Name="first_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="last_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="picture" Type="Binary" MaxLength="Max" FixedLength="false" />
           <Property Name="birthdate" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="created_at" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="user_position_id" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="task" Relationship="Self.FK_task_user" FromRole="user" ToRole="task" />
+          <NavigationProperty Name="task_note" Relationship="Self.FK_task_note_user" FromRole="user" ToRole="task_note" />
           <NavigationProperty Name="user_position" Relationship="Self.FK_user_user_position" FromRole="user" ToRole="user_position" />
         </EntityType>
         <EntityType Name="user_action">
@@ -359,8 +371,8 @@
           <NavigationProperty Name="user_permission" Relationship="Self.FK_user_permission_user_position" FromRole="user_position" ToRole="user_permission" />
         </EntityType>
         <Association Name="FK_module_module_category">
-          <End Role="module_category" Type="Model.module_category" Multiplicity="1" />
-          <End Role="module" Type="Model.module" Multiplicity="*" />
+          <End Role="module_category" Type="Self.module_category" Multiplicity="1" />
+          <End Role="module" Type="Self.module" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="module_category">
               <PropertyRef Name="id" />
@@ -371,8 +383,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_user_action_module">
-          <End Role="module" Type="Model.module" Multiplicity="1" />
-          <End Role="user_action" Type="Model.user_action" Multiplicity="*" />
+          <End Role="module" Type="Self.module" Multiplicity="1" />
+          <End Role="user_action" Type="Self.user_action" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="module">
               <PropertyRef Name="id" />
@@ -383,8 +395,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_task_note_note">
-          <End Role="note" Type="Model.note" Multiplicity="1" />
-          <End Role="task_note" Type="Model.task_note" Multiplicity="*" />
+          <End Role="note" Type="Self.note" Multiplicity="1" />
+          <End Role="task_note" Type="Self.task_note" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="note">
               <PropertyRef Name="id" />
@@ -395,8 +407,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_task_note_task">
-          <End Role="task" Type="Model.task" Multiplicity="1" />
-          <End Role="task_note" Type="Model.task_note" Multiplicity="*" />
+          <End Role="task" Type="Self.task" Multiplicity="1" />
+          <End Role="task_note" Type="Self.task_note" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="task">
               <PropertyRef Name="id" />
@@ -406,21 +418,21 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_task_user">
-          <End Role="user" Type="Model.user" Multiplicity="1" />
-          <End Role="task" Type="Model.task" Multiplicity="*" />
+        <Association Name="FK_task_note_user">
+          <End Role="user" Type="Self.user" Multiplicity="1" />
+          <End Role="task_note" Type="Self.task_note" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="user">
               <PropertyRef Name="id" />
             </Principal>
-            <Dependent Role="task">
+            <Dependent Role="task_note">
               <PropertyRef Name="user_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_user_user_position">
-          <End Role="user_position" Type="Model.user_position" Multiplicity="1" />
-          <End Role="user" Type="Model.user" Multiplicity="*" />
+          <End Role="user_position" Type="Self.user_position" Multiplicity="1" />
+          <End Role="user" Type="Self.user" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="user_position">
               <PropertyRef Name="id" />
@@ -431,8 +443,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_user_permission_user_action">
-          <End Role="user_action" Type="Model.user_action" Multiplicity="1" />
-          <End Role="user_permission" Type="Model.user_permission" Multiplicity="*" />
+          <End Role="user_action" Type="Self.user_action" Multiplicity="1" />
+          <End Role="user_permission" Type="Self.user_permission" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="user_action">
               <PropertyRef Name="id" />
@@ -443,8 +455,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_user_permission_user_position">
-          <End Role="user_position" Type="Model.user_position" Multiplicity="1" />
-          <End Role="user_permission" Type="Model.user_permission" Multiplicity="*" />
+          <End Role="user_position" Type="Self.user_position" Multiplicity="1" />
+          <End Role="user_permission" Type="Self.user_permission" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="user_position">
               <PropertyRef Name="id" />
@@ -454,17 +466,17 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="DataBaseEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Module" EntityType="Model.module" />
-          <EntitySet Name="ModuleCategory" EntityType="Model.module_category" />
-          <EntitySet Name="Note" EntityType="Model.note" />
+        <EntityContainer Name="DBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Module" EntityType="Self.module" />
+          <EntitySet Name="ModuleCategory" EntityType="Self.module_category" />
+          <EntitySet Name="Note" EntityType="Self.note" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
-          <EntitySet Name="Task" EntityType="Model.task" />
-          <EntitySet Name="TaskNote" EntityType="Model.task_note" />
-          <EntitySet Name="User" EntityType="Model.user" />
-          <EntitySet Name="UserAction" EntityType="Model.user_action" />
-          <EntitySet Name="UserPermission" EntityType="Model.user_permission" />
-          <EntitySet Name="UserPosition" EntityType="Model.user_position" />
+          <EntitySet Name="Task" EntityType="Self.task" />
+          <EntitySet Name="TaskNote" EntityType="Self.task_note" />
+          <EntitySet Name="User" EntityType="Self.user" />
+          <EntitySet Name="UserAction" EntityType="Self.user_action" />
+          <EntitySet Name="UserPermission" EntityType="Self.user_permission" />
+          <EntitySet Name="UserPosition" EntityType="Self.user_position" />
           <AssociationSet Name="FK_module_module_category" Association="Self.FK_module_module_category">
             <End Role="module_category" EntitySet="ModuleCategory" />
             <End Role="module" EntitySet="Module" />
@@ -481,9 +493,9 @@
             <End Role="task" EntitySet="Task" />
             <End Role="task_note" EntitySet="TaskNote" />
           </AssociationSet>
-          <AssociationSet Name="FK_task_user" Association="Self.FK_task_user">
+          <AssociationSet Name="FK_task_note_user" Association="Self.FK_task_note_user">
             <End Role="user" EntitySet="User" />
-            <End Role="task" EntitySet="Task" />
+            <End Role="task_note" EntitySet="TaskNote" />
           </AssociationSet>
           <AssociationSet Name="FK_user_user_position" Association="Self.FK_user_user_position">
             <End Role="user_position" EntitySet="UserPosition" />
@@ -503,7 +515,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="DataBaseEntities">
+        <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="DBEntities">
           <EntitySetMapping Name="Module">
             <EntityTypeMapping TypeName="Model.module">
               <MappingFragment StoreEntitySet="module">
@@ -554,7 +566,6 @@
                 <ScalarProperty Name="status" ColumnName="status" />
                 <ScalarProperty Name="created_at" ColumnName="created_at" />
                 <ScalarProperty Name="updated_at" ColumnName="updated_at" />
-                <ScalarProperty Name="user_id" ColumnName="user_id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -564,6 +575,7 @@
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="task_id" ColumnName="task_id" />
                 <ScalarProperty Name="note_id" ColumnName="note_id" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -572,10 +584,16 @@
               <MappingFragment StoreEntitySet="user">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="username" ColumnName="username" />
-                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="email_confirmed" ColumnName="email_confirmed" />
+                <ScalarProperty Name="password_hash" ColumnName="password_hash" />
+                <ScalarProperty Name="security_stamp" ColumnName="security_stamp" />
+                <ScalarProperty Name="two_factor_enabled" ColumnName="two_factor_enabled" />
+                <ScalarProperty Name="lockout_end_date_utc" ColumnName="lockout_end_date_utc" />
+                <ScalarProperty Name="lockout_enabled" ColumnName="lockout_enabled" />
+                <ScalarProperty Name="access_failed_count" ColumnName="access_failed_count" />
                 <ScalarProperty Name="first_name" ColumnName="first_name" />
                 <ScalarProperty Name="last_name" ColumnName="last_name" />
-                <ScalarProperty Name="email" ColumnName="email" />
                 <ScalarProperty Name="picture" ColumnName="picture" />
                 <ScalarProperty Name="birthdate" ColumnName="birthdate" />
                 <ScalarProperty Name="created_at" ColumnName="created_at" />

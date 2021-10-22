@@ -21,6 +21,7 @@ namespace cs_aspnet_mvc_crud.Controllers
             ViewBag.IdSortParm = String.IsNullOrEmpty(sortOrder) ? "id_desc" : "";
             ViewBag.TaskNameSortParm = String.IsNullOrEmpty(sortOrder) ? "task_name_desc" : "";
             ViewBag.NoteNameSortParm = String.IsNullOrEmpty(sortOrder) ? "note_name_desc" : "";
+            ViewBag.UserUsernameSortParm = String.IsNullOrEmpty(sortOrder) ? "user_username_desc" : "";
 
             if (searchString != null)
             {
@@ -40,6 +41,7 @@ namespace cs_aspnet_mvc_crud.Controllers
                 tasksNotes = tasksNotes.Where(o =>
                     o.task.name.Contains(searchString)
                     || o.note.name.Contains(searchString)
+                    || o.user.username.Contains(searchString)
                 );
             }
 
@@ -54,6 +56,9 @@ namespace cs_aspnet_mvc_crud.Controllers
                 case "note_name_desc":
                     tasksNotes = tasksNotes.OrderByDescending(o => o.note.name);
                     break;
+                case "user_username_desc":
+                    tasksNotes = tasksNotes.OrderByDescending(o => o.user.username);
+                    break;
                 default:
                     tasksNotes = tasksNotes.OrderBy(o => o.id);
                     break;
@@ -67,7 +72,7 @@ namespace cs_aspnet_mvc_crud.Controllers
         [UserAuthorization(userActionId: 41)]
         public async Task<ActionResult> GetAll()
         {
-            var task_note = entityModel.TaskNote.Include(t => t.note).Include(t => t.task);
+            var task_note = entityModel.TaskNote.Include(t => t.note).Include(t => t.task).Include(t => t.user);
             return View(await task_note.ToListAsync());
         }
 
@@ -93,6 +98,7 @@ namespace cs_aspnet_mvc_crud.Controllers
         {
             ViewBag.note_id = new SelectList(entityModel.Note, "id", "name");
             ViewBag.task_id = new SelectList(entityModel.Task, "id", "name");
+            ViewBag.user_id = new SelectList(entityModel.User, "id", "username");
             return View();
         }
 
@@ -102,7 +108,7 @@ namespace cs_aspnet_mvc_crud.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [UserAuthorization(userActionId: 43)]
-        public async Task<ActionResult> Create([Bind(Include = "id,task_id,note_id")] task_note task_note)
+        public async Task<ActionResult> Create([Bind(Include = "id,task_id,note_id,user_id")] task_note task_note)
         {
             if (ModelState.IsValid)
             {
@@ -113,6 +119,7 @@ namespace cs_aspnet_mvc_crud.Controllers
 
             ViewBag.note_id = new SelectList(entityModel.Note, "id", "name", task_note.note_id);
             ViewBag.task_id = new SelectList(entityModel.Task, "id", "name", task_note.task_id);
+            ViewBag.user_id = new SelectList(entityModel.User, "id", "username", task_note.user_id);
             return View(task_note);
         }
 
@@ -131,6 +138,7 @@ namespace cs_aspnet_mvc_crud.Controllers
             }
             ViewBag.note_id = new SelectList(entityModel.Note, "id", "name", task_note.note_id);
             ViewBag.task_id = new SelectList(entityModel.Task, "id", "name", task_note.task_id);
+            ViewBag.user_id = new SelectList(entityModel.User, "id", "username", task_note.user_id);
             return View(task_note);
         }
 
@@ -140,7 +148,7 @@ namespace cs_aspnet_mvc_crud.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [UserAuthorization(userActionId: 44)]
-        public async Task<ActionResult> Edit([Bind(Include = "id,task_id,note_id")] task_note task_note)
+        public async Task<ActionResult> Edit([Bind(Include = "id,task_id,note_id,user_id")] task_note task_note)
         {
             if (ModelState.IsValid)
             {
@@ -150,6 +158,7 @@ namespace cs_aspnet_mvc_crud.Controllers
             }
             ViewBag.note_id = new SelectList(entityModel.Note, "id", "name", task_note.note_id);
             ViewBag.task_id = new SelectList(entityModel.Task, "id", "name", task_note.task_id);
+            ViewBag.user_id = new SelectList(entityModel.User, "id", "username", task_note.user_id);
             return View(task_note);
         }
 

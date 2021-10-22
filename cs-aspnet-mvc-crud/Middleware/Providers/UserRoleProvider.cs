@@ -36,17 +36,17 @@ namespace cs_aspnet_mvc_crud.Middleware.Providers
 
         public override string[] GetRolesForUser(string userPositionName)
         {
-            using (DataBaseEntities entityModel = new DataBaseEntities())
+            using (DBEntities entityModel = new DBEntities())
             {
                 var userPositions = (
                     from userMapping in entityModel.User
-                        join positionMapping in entityModel.UserPosition
-                            on userMapping.user_position_id equals positionMapping.id
-                        join permissionMapping in entityModel.UserPermission
-                            on positionMapping.id equals permissionMapping.user_position_id
-                        join ActionMapping in entityModel.UserAction
-                            on permissionMapping.user_action_id equals ActionMapping.id
-                    where permissionMapping.user_position_id == userMapping.user_position_id 
+                    join positionMapping in entityModel.UserPosition
+                        on userMapping.user_position_id equals positionMapping.id
+                    join permissionMapping in entityModel.UserPermission
+                        on positionMapping.id equals permissionMapping.user_position_id
+                    join ActionMapping in entityModel.UserAction
+                        on permissionMapping.user_action_id equals ActionMapping.id
+                    where permissionMapping.user_position_id == userMapping.user_position_id
                         && positionMapping.name == userPositionName
                     select positionMapping.name).ToArray();
                 return userPositions;

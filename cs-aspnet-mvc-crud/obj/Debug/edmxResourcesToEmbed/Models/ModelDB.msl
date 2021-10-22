@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-  <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="DataBaseEntities">
+  <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="DBEntities">
     <EntitySetMapping Name="Module">
       <EntityTypeMapping TypeName="Model.module">
         <MappingFragment StoreEntitySet="module">
@@ -51,7 +51,6 @@
           <ScalarProperty Name="status" ColumnName="status" />
           <ScalarProperty Name="created_at" ColumnName="created_at" />
           <ScalarProperty Name="updated_at" ColumnName="updated_at" />
-          <ScalarProperty Name="user_id" ColumnName="user_id" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -61,6 +60,7 @@
           <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="task_id" ColumnName="task_id" />
           <ScalarProperty Name="note_id" ColumnName="note_id" />
+          <ScalarProperty Name="user_id" ColumnName="user_id" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -69,10 +69,16 @@
         <MappingFragment StoreEntitySet="user">
           <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="username" ColumnName="username" />
-          <ScalarProperty Name="password" ColumnName="password" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="email_confirmed" ColumnName="email_confirmed" />
+          <ScalarProperty Name="password_hash" ColumnName="password_hash" />
+          <ScalarProperty Name="security_stamp" ColumnName="security_stamp" />
+          <ScalarProperty Name="two_factor_enabled" ColumnName="two_factor_enabled" />
+          <ScalarProperty Name="lockout_end_date_utc" ColumnName="lockout_end_date_utc" />
+          <ScalarProperty Name="lockout_enabled" ColumnName="lockout_enabled" />
+          <ScalarProperty Name="access_failed_count" ColumnName="access_failed_count" />
           <ScalarProperty Name="first_name" ColumnName="first_name" />
           <ScalarProperty Name="last_name" ColumnName="last_name" />
-          <ScalarProperty Name="email" ColumnName="email" />
           <ScalarProperty Name="picture" ColumnName="picture" />
           <ScalarProperty Name="birthdate" ColumnName="birthdate" />
           <ScalarProperty Name="created_at" ColumnName="created_at" />

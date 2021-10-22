@@ -2,45 +2,47 @@
 
 @{
     ViewBag.Title = "Edit";
+    ViewBag.Model = "Task Note";
 }
-
-<h2>Edit</h2>
-
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>task_note</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.id)
+    <div class="col mx-auto">
+        <div class="p-4 p-md-5 border rounded-3 bg-light">
+            <h4>@ViewBag.Title @ViewBag.Model</h4>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.id)
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.task_id, "task_id", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("task_id", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.task_id, "", new { @class = "text-danger" })
+            <div class="form-group mb-3">
+
+                <div class="control-label">Task</div>
+                <div class="col-md-10">
+                    @Html.DropDownList("task_id", null, htmlAttributes: new { @class = "form-select" })
+                    @Html.ValidationMessageFor(model => model.task_id, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="control-label">Note</div>
+                <div class="col-md-10">
+                    @Html.DropDownList("note_id", null, htmlAttributes: new { @class = "form-select" })
+                    @Html.ValidationMessageFor(model => model.note_id, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="control-label">User</div>
+                <div class="col-md-10">
+                    @Html.DropDownList("user_id", null, htmlAttributes: new { @class = "form-select" })
+                    @Html.ValidationMessageFor(model => model.user_id, "", new { @class = "text-danger" })
+                </div>
+
             </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.note_id, "note_id", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("note_id", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.note_id, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    @Html.ActionLink("Cancel", "Index", null, new { @class = "btn btn-lg btn-dark" })
+                    <input type="submit" value="Save Changes" class="btn btn-lg btn-primary" />
+                </div>
             </div>
         </div>
     </div>
 }
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>

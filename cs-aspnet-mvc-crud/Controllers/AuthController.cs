@@ -25,11 +25,11 @@ namespace cs_aspnet_mvc_crud.Controllers
         {
             try
             {
-                using (Models.DataBaseEntities entityModel = new Models.DataBaseEntities())
+                using (Models.DBEntities entityModel = new Models.DBEntities())
                 {
                     var userModel = (
                         from u in entityModel.User 
-                        where u.email == field_user.Trim() || u.username == field_user.Trim() && u.password == field_pass.Trim()
+                        where u.email == field_user.Trim() || u.username == field_user.Trim() && u.password_hash == field_pass.Trim()
                         select u).FirstOrDefault();
 
                     if (userModel == null)

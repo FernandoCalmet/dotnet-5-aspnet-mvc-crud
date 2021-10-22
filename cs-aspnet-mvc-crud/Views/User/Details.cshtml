@@ -2,89 +2,117 @@
 
 @{
     ViewBag.Title = "Details";
+    ViewBag.Model = "User";
+    ViewBag.ModelRelation = "User Position";
 }
 
-<h2>Details</h2>
+<div class="col mx-auto">
+    <div class="p-4 p-md-5 border rounded-3 bg-light">
 
-<div>
-    <h4>user</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.username)
-        </dt>
+        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+            <h1 class="h2">@ViewBag.Title @ViewBag.Model</h1>
+            <div class="btn-toolbar mb-2 mb-md-0">
+                <div class="btn-group me-2">
+                    @Html.ActionLink("Return", "Index", null, new { @class = "btn btn-sm btn-dark bi bi-backspace" })
+                </div>
+            </div>
+        </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.username)
-        </dd>
+        <div class="accordion mb-3" id="accordionOne">
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingOne">
+                    <button class="accordion-button text-white bg-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                        @ViewBag.Title of this @ViewBag.Model
+                    </button>
+                </h2>
+                <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionOne">
+                    <div class="accordion-body">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-3"><b>Id</b></div>
+                                <div class="col">@Html.DisplayFor(model => model.id)</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-3"><b>Name</b></div>
+                                <div class="col">@Html.DisplayFor(model => model.username)</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-3"><b>Description</b></div>
+                                <div class="col">@Html.DisplayFor(model => model.email)</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-3"><b>Email Confirmed</b></div>
+                                <div class="col">@Html.DisplayFor(model => model.email_confirmed)</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-3"><b>Security Stamp</b></div>
+                                <div class="col">@Html.DisplayFor(model => model.security_stamp)</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-3"><b>Security Two Factor</b></div>
+                                <div class="col">@Html.DisplayFor(model => model.two_factor_enabled)</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-3"><b>Lockout End Date UTC</b></div>
+                                <div class="col">@Html.DisplayFor(model => model.lockout_end_date_utc)</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-3"><b>Lockout</b></div>
+                                <div class="col">@Html.DisplayFor(model => model.lockout_enabled)</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-3"><b>SAccess Failed</b></div>
+                                <div class="col">@Html.DisplayFor(model => model.access_failed_count)</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-3"><b>First Name</b></div>
+                                <div class="col">@Html.DisplayFor(model => model.first_name)</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-3"><b>Last Name</b></div>
+                                <div class="col">@Html.DisplayFor(model => model.last_name)</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-3"><b>Birthdate</b></div>
+                                <div class="col">@Html.DisplayFor(model => model.birthdate)</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-3"><b>Created At</b></div>
+                                <div class="col">@Html.DisplayFor(model => model.created_at)</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-3"><b>Picture</b></div>
+                                <div class="col">@Html.DisplayFor(model => model.picture)</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.password)
-        </dt>
+        <div class="accordion mb-3" id="accordionTwo">
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingTwo">
+                    <button class="accordion-button text-white bg-dark" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                        Related to @ViewBag.ModelRelation
+                    </button>
+                </h2>
+                <div id="collapseTwo" class="accordion-collapse collapse show" aria-labelledby="headingTwo" data-bs-parent="#accordionTwo">
+                    <div class="accordion-body">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-3"><b>Id</b></div>
+                                <div class="col">@Html.DisplayFor(model => model.user_position.id)</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-3"><b>Name</b></div>
+                                <div class="col">@Html.DisplayFor(model => model.user_position.name)</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.password)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.first_name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.first_name)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.last_name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.last_name)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.email)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.email)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.picture)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.picture)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.birthdate)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.birthdate)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.created_at)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.created_at)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.user_position.name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.user_position.name)
-        </dd>
-
-    </dl>
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>

@@ -26,10 +26,8 @@ namespace cs_aspnet_mvc_crud.Models
         public int status { get; set; }
         public System.DateTime created_at { get; set; }
         public Nullable<System.DateTime> updated_at { get; set; }
-        public int user_id { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<task_note> task_note { get; set; }
-        public virtual user user { get; set; }
     }
 }

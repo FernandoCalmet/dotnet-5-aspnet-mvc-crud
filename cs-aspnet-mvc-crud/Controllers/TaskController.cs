@@ -21,8 +21,6 @@ namespace cs_aspnet_mvc_crud.Controllers
             ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
             ViewBag.CreatedAtSortParm = String.IsNullOrEmpty(sortOrder) ? "created_at_desc" : "";
             ViewBag.UpdatedAtSortParm = String.IsNullOrEmpty(sortOrder) ? "updated_at_desc" : "";
-            ViewBag.UserUsernameSortParm = String.IsNullOrEmpty(sortOrder) ? "user_username_desc" : "";
-            ViewBag.UserEmailSortParm = String.IsNullOrEmpty(sortOrder) ? "user_email_desc" : "";
 
             if (searchString != null)
             {
@@ -39,11 +37,7 @@ namespace cs_aspnet_mvc_crud.Controllers
 
             if (!String.IsNullOrEmpty(searchString))
             {
-                tasks = tasks.Where(o =>
-                    o.name.Contains(searchString)
-                    || o.user.username.Contains(searchString)
-                    || o.user.email.Contains(searchString)
-                );
+                tasks = tasks.Where(o => o.name.Contains(searchString));
             }
 
             switch (sortOrder)
@@ -63,12 +57,6 @@ namespace cs_aspnet_mvc_crud.Controllers
                 case "updated_at_desc":
                     tasks = tasks.OrderByDescending(o => o.updated_at);
                     break;
-                case "user_username_desc":
-                    tasks = tasks.OrderByDescending(o => o.user.username);
-                    break;
-                case "user_email_desc":
-                    tasks = tasks.OrderByDescending(o => o.user.email);
-                    break;
                 default:
                     tasks = tasks.OrderBy(o => o.id);
                     break;
@@ -82,7 +70,7 @@ namespace cs_aspnet_mvc_crud.Controllers
         [UserAuthorization(userActionId: 31)]
         public async Task<ActionResult> GetAll()
         {
-            var task = entityModel.Task.Include(t => t.user);
+            var task = entityModel.Task;
             return View(await task.ToListAsync());
         }
 
@@ -126,7 +114,7 @@ namespace cs_aspnet_mvc_crud.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.user_id = new SelectList(entityModel.User, "id", "username", task.user_id);
+            ViewBag.user_id = new SelectList(entityModel.User, "id", "username");
             return View(task);
         }
 
@@ -144,7 +132,7 @@ namespace cs_aspnet_mvc_crud.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.user_id = new SelectList(entityModel.User, "id", "username", task.user_id);
+            ViewBag.user_id = new SelectList(entityModel.User, "id", "username");
             return View(task);
         }
 
@@ -163,7 +151,7 @@ namespace cs_aspnet_mvc_crud.Controllers
                 await entityModel.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            ViewBag.user_id = new SelectList(entityModel.User, "id", "username", task.user_id);
+            ViewBag.user_id = new SelectList(entityModel.User, "id", "username");
             return View(task);
         }
 

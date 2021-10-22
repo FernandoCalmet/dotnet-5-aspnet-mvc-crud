@@ -5,7 +5,7 @@ namespace cs_aspnet_mvc_crud.Controllers
 {
     public abstract class BaseController : Controller
     {
-        protected DataBaseEntities entityModel = new DataBaseEntities();
+        protected DBEntities entityModel = new DBEntities();
         public readonly int pageSize = 10;
     }
 }

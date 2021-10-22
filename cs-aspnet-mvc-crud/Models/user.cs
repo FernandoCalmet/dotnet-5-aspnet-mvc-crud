@@ -17,22 +17,28 @@ namespace cs_aspnet_mvc_crud.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public user()
         {
-            this.task = new HashSet<task>();
+            this.task_note = new HashSet<task_note>();
         }
     
         public int id { get; set; }
         public string username { get; set; }
-        public string password { get; set; }
+        public string email { get; set; }
+        public Nullable<bool> email_confirmed { get; set; }
+        public string password_hash { get; set; }
+        public string security_stamp { get; set; }
+        public bool two_factor_enabled { get; set; }
+        public Nullable<System.DateTime> lockout_end_date_utc { get; set; }
+        public bool lockout_enabled { get; set; }
+        public int access_failed_count { get; set; }
         public string first_name { get; set; }
         public string last_name { get; set; }
-        public string email { get; set; }
         public byte[] picture { get; set; }
         public System.DateTime birthdate { get; set; }
         public System.DateTime created_at { get; set; }
         public int user_position_id { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<task> task { get; set; }
+        public virtual ICollection<task_note> task_note { get; set; }
         public virtual user_position user_position { get; set; }
     }
 }

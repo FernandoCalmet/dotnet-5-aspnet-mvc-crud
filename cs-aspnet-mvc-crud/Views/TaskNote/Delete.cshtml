@@ -2,39 +2,149 @@
 
 @{
     ViewBag.Title = "Delete";
+    ViewBag.Model = "Task Note";
+    ViewBag.ModelRelation1 = "Task";
+    ViewBag.ModelRelation2 = "Note";
+    ViewBag.ModelRelation3 = "User";
 }
 
-<h2>Delete</h2>
+<div class="col mx-auto">
+    <div class="p-4 p-md-5 border rounded-3 bg-light">
 
-<h3>Are you sure you want to delete this?</h3>
-<div>
-    <h4>task_note</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.note.name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.note.name)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.task.name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.task.name)
-        </dd>
-
-    </dl>
-
-    @using (Html.BeginForm()) {
-        @Html.AntiForgeryToken()
-
-        <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
+        <div class="alert alert-danger" role="alert">
+            Are you sure you want to delete this @ViewBag.Model?
         </div>
-    }
+
+        <div class="accordion mb-3" id="accordionOne">
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingOne">
+                    <button class="accordion-button text-white bg-danger" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                        @ViewBag.Title of this @ViewBag.Model
+                    </button>
+                </h2>
+                <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionOne">
+                    <div class="accordion-body">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-3"><b>Id</b></div>
+                                <div class="col">@Html.DisplayFor(model => model.id)</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-3"><b>Task Id</b></div>
+                                <div class="col">@Html.DisplayFor(model => model.task_id)</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-3"><b>Note Id</b></div>
+                                <div class="col">@Html.DisplayFor(model => model.note_id)</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-3"><b>User Id</b></div>
+                                <div class="col">@Html.DisplayFor(model => model.user_id)</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="accordion mb-3" id="accordionTwo">
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingTwo">
+                    <button class="accordion-button text-white bg-dark" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                        Related to @ViewBag.ModelRelation1
+                    </button>
+                </h2>
+                <div id="collapseTwo" class="accordion-collapse collapse show" aria-labelledby="headingTwo" data-bs-parent="#accordionTwo">
+                    <div class="accordion-body">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-3"><b>Id</b></div>
+                                <div class="col">@Html.DisplayFor(model => model.task.id)</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-3"><b>Name</b></div>
+                                <div class="col">@Html.DisplayFor(model => model.task.name)</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-3"><b>Description</b></div>
+                                <div class="col">@Html.DisplayFor(model => model.task.description)</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="accordion mb-3" id="accordionThree">
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingThree">
+                    <button class="accordion-button text-white bg-dark" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
+                        Related to @ViewBag.ModelRelation2
+                    </button>
+                </h2>
+                <div id="collapseThree" class="accordion-collapse collapse show" aria-labelledby="headingThree" data-bs-parent="#accordionThree">
+                    <div class="accordion-body">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-3"><b>Id</b></div>
+                                <div class="col">@Html.DisplayFor(model => model.note.id)</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-3"><b>Name</b></div>
+                                <div class="col">@Html.DisplayFor(model => model.note.name)</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-3"><b>Description</b></div>
+                                <div class="col">@Html.DisplayFor(model => model.note.description)</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="accordion mb-3" id="accordionFour">
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingFour">
+                    <button class="accordion-button text-white bg-dark" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="true" aria-controls="collapseFour">
+                        Related to @ViewBag.ModelRelation3
+                    </button>
+                </h2>
+                <div id="collapseFour" class="accordion-collapse collapse show" aria-labelledby="headingFour" data-bs-parent="#accordionFour">
+                    <div class="accordion-body">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-3"><b>Id</b></div>
+                                <div class="col">@Html.DisplayFor(model => model.user.id)</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-3"><b>Username</b></div>
+                                <div class="col">@Html.DisplayFor(model => model.user.username)</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-3"><b>Email</b></div>
+                                <div class="col">@Html.DisplayFor(model => model.user.email)</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-3"><b>First Name</b></div>
+                                <div class="col">@Html.DisplayFor(model => model.user.first_name)</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-3"><b>Last Name</b></div>
+                                <div class="col">@Html.DisplayFor(model => model.user.last_name)</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                @Html.ActionLink("Cancel", "Index", null, new { @class = "btn btn-lg btn-dark" })
+                <input type="submit" value="Delete" class="btn btn-lg btn-danger" />
+            </div>
+        </div>
+
+    </div>
 </div>

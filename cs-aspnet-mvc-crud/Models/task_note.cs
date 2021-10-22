@@ -17,8 +17,10 @@ namespace cs_aspnet_mvc_crud.Models
         public int id { get; set; }
         public int task_id { get; set; }
         public int note_id { get; set; }
+        public int user_id { get; set; }
     
         public virtual note note { get; set; }
         public virtual task task { get; set; }
+        public virtual user user { get; set; }
     }
 }

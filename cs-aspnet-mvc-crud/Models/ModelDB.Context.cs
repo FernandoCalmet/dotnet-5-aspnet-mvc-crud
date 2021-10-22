@@ -13,16 +13,16 @@ namespace cs_aspnet_mvc_crud.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class DataBaseEntities : DbContext
+    public partial class DBEntities : DbContext
     {
-        public DataBaseEntities()
-            : base("name=DataBaseEntities")
+        public DBEntities()
+            : base("name=DBEntities")
         {
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            throw new UnintentionalCodeFirstException();        
+            throw new UnintentionalCodeFirstException();
         }
     
         public virtual DbSet<module> Module { get; set; }

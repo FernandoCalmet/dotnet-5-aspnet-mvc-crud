@@ -4,22 +4,22 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="88b92c273ce74da386cc04356bd0398f" Name="Diagram1">
-        <EntityTypeShape EntityType="Model.module" Width="1.5" PointX="1.5" PointY="8.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.module_category" Width="1.5" PointX="1.5" PointY="11.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.note" Width="1.5" PointX="5.25" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.sysdiagrams" Width="1.5" PointX="3.75" PointY="8.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.task" Width="1.5" PointX="5.25" PointY="4.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.task_note" Width="1.5" PointX="7.5" PointY="4.875" IsExpanded="true" />
+      <Diagram DiagramId="d81781fe31644eb59c447bdb38a73b1b" Name="Diagram1">
+        <EntityTypeShape EntityType="Model.module" Width="1.5" PointX="1.5" PointY="10.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.module_category" Width="1.5" PointX="1.5" PointY="13.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.note" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.sysdiagrams" Width="1.5" PointX="5.75" PointY="8.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.task" Width="1.5" PointX="3" PointY="16.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.task_note" Width="1.5" PointX="5.25" PointY="5.25" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.user" Width="1.5" PointX="3" PointY="4.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.user_action" Width="1.5" PointX="0.75" PointY="1.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.user_permission" Width="1.5" PointX="3" PointY="0.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.user_position" Width="1.5" PointX="0.75" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.user_action" Width="1.5" PointX="3.75" PointY="10.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.user_permission" Width="1.5" PointX="6" PointY="2.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.user_position" Width="1.5" PointX="0.75" PointY="5.375" IsExpanded="true" />
         <AssociationConnector Association="Model.FK_module_module_category" ManuallyRouted="false" />
         <AssociationConnector Association="Model.FK_user_action_module" ManuallyRouted="false" />
         <AssociationConnector Association="Model.FK_task_note_note" ManuallyRouted="false" />
         <AssociationConnector Association="Model.FK_task_note_task" ManuallyRouted="false" />
-        <AssociationConnector Association="Model.FK_task_user" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_task_note_user" ManuallyRouted="false" />
         <AssociationConnector Association="Model.FK_user_user_position" ManuallyRouted="false" />
         <AssociationConnector Association="Model.FK_user_permission_user_action" ManuallyRouted="false" />
         <AssociationConnector Association="Model.FK_user_permission_user_position" ManuallyRouted="false" />
