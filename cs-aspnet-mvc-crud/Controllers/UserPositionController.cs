@@ -1,9 +1,12 @@
-﻿using System.Data.Entity;
+﻿using System;
+using System.Data.Entity;
 using System.Threading.Tasks;
 using System.Net;
 using System.Web.Mvc;
+using System.Linq;
 using cs_aspnet_mvc_crud.Models;
 using cs_aspnet_mvc_crud.Middleware.Auth;
+using PagedList;
 
 namespace cs_aspnet_mvc_crud.Controllers
 {
@@ -11,7 +14,57 @@ namespace cs_aspnet_mvc_crud.Controllers
     {
         // GET: UserPosition
         [UserAuthorization(userActionId: 11)]
-        public async Task<ActionResult> Index()
+        public ActionResult Index(string sortOrder, string currentFilter, string searchString, int? page)
+        {
+            ViewBag.CurrentSort = sortOrder;
+            ViewBag.IdSortParm = String.IsNullOrEmpty(sortOrder) ? "id_desc" : "";
+            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewBag.DescriptionSortParm = String.IsNullOrEmpty(sortOrder) ? "description_desc" : "";
+
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            ViewBag.CurrentFilter = searchString;
+
+            var usersPositions = from o in entityModel.UserPosition select o;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                usersPositions = usersPositions.Where(o =>
+                    o.name.Contains(searchString)
+                    || o.description.Contains(searchString)
+                );
+            }
+
+            switch (sortOrder)
+            {
+                case "id_desc":
+                    usersPositions = usersPositions.OrderByDescending(o => o.id);
+                    break;
+                case "name_desc":
+                    usersPositions = usersPositions.OrderByDescending(o => o.name);
+                    break;
+                case "description_desc":
+                    usersPositions = usersPositions.OrderByDescending(o => o.description);
+                    break;
+                default:
+                    usersPositions = usersPositions.OrderBy(o => o.id);
+                    break;
+            }
+            int pageNumber = (page ?? 1);
+
+            return View(usersPositions.ToPagedList(pageNumber, this.pageSize));
+        }
+
+        // GET: UserPosition
+        [UserAuthorization(userActionId: 11)]
+        public async Task<ActionResult> GetAll()
         {
             return View(await entityModel.UserPosition.ToListAsync());
         }

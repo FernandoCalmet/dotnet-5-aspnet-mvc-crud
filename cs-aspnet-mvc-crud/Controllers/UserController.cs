@@ -1,9 +1,12 @@
-﻿using System.Data.Entity;
+﻿using System;
+using System.Data.Entity;
 using System.Threading.Tasks;
 using System.Net;
 using System.Web.Mvc;
+using System.Linq;
 using cs_aspnet_mvc_crud.Models;
 using cs_aspnet_mvc_crud.Middleware.Auth;
+using PagedList;
 
 namespace cs_aspnet_mvc_crud.Controllers
 {
@@ -11,7 +14,80 @@ namespace cs_aspnet_mvc_crud.Controllers
     {
         // GET: User
         [UserAuthorization(userActionId: 26)]
-        public async Task<ActionResult> Index()
+        public ActionResult Index(string sortOrder, string currentFilter, string searchString, int? page)
+        {
+            ViewBag.CurrentSort = sortOrder;
+            ViewBag.IdSortParm = String.IsNullOrEmpty(sortOrder) ? "id_desc" : "";
+            ViewBag.UsernameSortParm = String.IsNullOrEmpty(sortOrder) ? "username_desc" : "";
+            ViewBag.FirstNameSortParm = String.IsNullOrEmpty(sortOrder) ? "first_name_desc" : "";
+            ViewBag.LastNameSortParm = String.IsNullOrEmpty(sortOrder) ? "last_name_desc" : "";
+            ViewBag.EmailSortParm = String.IsNullOrEmpty(sortOrder) ? "email_desc" : "";
+            ViewBag.BirthdaySortParm = String.IsNullOrEmpty(sortOrder) ? "birthday_desc" : "";
+            ViewBag.CreatedAtSortParm = String.IsNullOrEmpty(sortOrder) ? "created_at_desc" : "";
+            ViewBag.UserPositionNameSortParm = String.IsNullOrEmpty(sortOrder) ? "user_position_name_desc" : "";
+
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            ViewBag.CurrentFilter = searchString;
+
+            var users = from o in entityModel.User select o;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                users = users.Where(o =>
+                    o.username.Contains(searchString)
+                    || o.first_name.Contains(searchString)
+                    || o.last_name.Contains(searchString)
+                    || o.email.Contains(searchString)
+                    || o.user_position.name.Contains(searchString)
+                );
+            }
+
+            switch (sortOrder)
+            {
+                case "id_desc":
+                    users = users.OrderByDescending(o => o.id);
+                    break;
+                case "username_desc":
+                    users = users.OrderByDescending(o => o.username);
+                    break;
+                case "first_name_desc":
+                    users = users.OrderByDescending(o => o.first_name);
+                    break;
+                case "last_name_desc":
+                    users = users.OrderByDescending(o => o.last_name);
+                    break;
+                case "email_desc":
+                    users = users.OrderByDescending(o => o.email);
+                    break;
+                case "birthday_desc":
+                    users = users.OrderByDescending(o => o.birthdate);
+                    break;
+                case "created_at_desc":
+                    users = users.OrderByDescending(o => o.created_at);
+                    break;
+                case "user_position_name_desc":
+                    users = users.OrderByDescending(o => o.user_position.name);
+                    break;
+                default:
+                    users = users.OrderBy(o => o.id);
+                    break;
+            }
+            int pageNumber = (page ?? 1);
+
+            return View(users.ToPagedList(pageNumber, this.pageSize));
+        }
+
+        // GET: User
+        [UserAuthorization(userActionId: 26)]
+        public async Task<ActionResult> GetAll()
         {
             var user = entityModel.User.Include(u => u.user_position);
             return View(await user.ToListAsync());

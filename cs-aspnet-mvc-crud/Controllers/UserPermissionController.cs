@@ -1,9 +1,12 @@
-﻿using System.Data.Entity;
+﻿using System;
+using System.Data.Entity;
 using System.Threading.Tasks;
 using System.Net;
 using System.Web.Mvc;
+using System.Linq;
 using cs_aspnet_mvc_crud.Models;
 using cs_aspnet_mvc_crud.Middleware.Auth;
+using PagedList;
 
 namespace cs_aspnet_mvc_crud.Controllers
 {
@@ -11,7 +14,57 @@ namespace cs_aspnet_mvc_crud.Controllers
     {
         // GET: UserPermission
         [UserAuthorization(userActionId: 21)]
-        public async Task<ActionResult> Index()
+        public ActionResult Index(string sortOrder, string currentFilter, string searchString, int? page)
+        {
+            ViewBag.CurrentSort = sortOrder;
+            ViewBag.IdSortParm = String.IsNullOrEmpty(sortOrder) ? "id_desc" : "";
+            ViewBag.UserPositionNameSortParm = String.IsNullOrEmpty(sortOrder) ? "user_position_name_desc" : "";
+            ViewBag.UserActionNameSortParm = String.IsNullOrEmpty(sortOrder) ? "user_action_name_desc" : "";
+
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            ViewBag.CurrentFilter = searchString;
+
+            var usersPermissions = from o in entityModel.UserPermission select o;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                usersPermissions = usersPermissions.Where(o =>
+                    o.user_position.name.Contains(searchString)
+                    || o.user_action.name.Contains(searchString)
+                );
+            }
+
+            switch (sortOrder)
+            {
+                case "id_desc":
+                    usersPermissions = usersPermissions.OrderByDescending(o => o.id);
+                    break;
+                case "user_position_name_desc":
+                    usersPermissions = usersPermissions.OrderByDescending(o => o.user_position.name);
+                    break;
+                case "user_action_name_desc":
+                    usersPermissions = usersPermissions.OrderByDescending(o => o.user_action.name);
+                    break;
+                default:
+                    usersPermissions = usersPermissions.OrderBy(o => o.id);
+                    break;
+            }
+            int pageNumber = (page ?? 1);
+
+            return View(usersPermissions.ToPagedList(pageNumber, this.pageSize));
+        }
+
+        // GET: UserPermission
+        [UserAuthorization(userActionId: 21)]
+        public async Task<ActionResult> GetAll()
         {
             var user_permission = entityModel.UserPermission.Include(u => u.user_action).Include(u => u.user_position);
             return View(await user_permission.ToListAsync());
