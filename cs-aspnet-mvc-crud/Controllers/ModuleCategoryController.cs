@@ -11,14 +11,7 @@ using PagedList;
 namespace cs_aspnet_mvc_crud.Controllers
 {
     public class ModuleCategoryController : BaseController
-    {
-        // GET: ModuleCategory
-        //[UserAuthorization(userActionId: 1)]
-        //public async Task<ActionResult> Index()
-        //{
-        //    return View(await entityModel.ModuleCategory.ToListAsync());
-        //}
-
+    {  
         // GET: ModuleCategory
         [UserAuthorization(userActionId: 1)]
         public ActionResult Index(string sortOrder, string currentFilter, string searchString, int? page)
@@ -60,6 +53,13 @@ namespace cs_aspnet_mvc_crud.Controllers
             int pageNumber = (page ?? 1);
 
             return View(modulesCategories.ToPagedList(pageNumber, this.pageSize));
+        }
+
+        //GET: ModuleCategory
+        [UserAuthorization(userActionId: 1)]
+        public async Task<ActionResult> GetAll()
+        {
+            return View(await entityModel.ModuleCategory.ToListAsync());
         }
 
         // GET: ModuleCategory/Details/5

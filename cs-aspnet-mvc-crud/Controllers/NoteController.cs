@@ -1,9 +1,12 @@
-﻿using System.Data.Entity;
+﻿using System;
+using System.Data.Entity;
 using System.Threading.Tasks;
 using System.Net;
 using System.Web.Mvc;
+using System.Linq;
 using cs_aspnet_mvc_crud.Models;
 using cs_aspnet_mvc_crud.Middleware.Auth;
+using PagedList;
 
 namespace cs_aspnet_mvc_crud.Controllers
 {
@@ -11,7 +14,65 @@ namespace cs_aspnet_mvc_crud.Controllers
     {
         // GET: Note
         [UserAuthorization(userActionId: 36)]
-        public async Task<ActionResult> Index()
+        public ActionResult Index(string sortOrder, string currentFilter, string searchString, int? page)
+        {
+            ViewBag.CurrentSort = sortOrder;
+            ViewBag.IdSortParm = String.IsNullOrEmpty(sortOrder) ? "id_desc" : "";
+            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewBag.DescriptionSortParm = String.IsNullOrEmpty(sortOrder) ? "description_desc" : "";
+            ViewBag.CreatedAtSortParm = String.IsNullOrEmpty(sortOrder) ? "created_at_desc" : "";
+            ViewBag.UpdatedAtSortParm = String.IsNullOrEmpty(sortOrder) ? "updated_at_desc" : "";
+
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            ViewBag.CurrentFilter = searchString;
+
+            var notes = from o in entityModel.Note select o;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                notes = notes.Where(o =>
+                    o.name.Contains(searchString)
+                    || o.description.Contains(searchString)
+                );
+            }
+
+            switch (sortOrder)
+            {
+                case "id_desc":
+                    notes = notes.OrderByDescending(o => o.id);
+                    break;
+                case "name_desc":
+                    notes = notes.OrderByDescending(o => o.name);
+                    break;
+                case "description_desc":
+                    notes = notes.OrderByDescending(o => o.description);
+                    break;
+                case "created_at_desc":
+                    notes = notes.OrderByDescending(o => o.created_at);
+                    break;
+                case "updated_at_desc":
+                    notes = notes.OrderByDescending(o => o.updated_at);
+                    break;
+                default:
+                    notes = notes.OrderBy(o => o.id);
+                    break;
+            }
+            int pageNumber = (page ?? 1);
+
+            return View(notes.ToPagedList(pageNumber, this.pageSize));
+        }
+
+        // GET: Note
+        [UserAuthorization(userActionId: 36)]
+        public async Task<ActionResult> GetAll()
         {
             return View(await entityModel.Note.ToListAsync());
         }
