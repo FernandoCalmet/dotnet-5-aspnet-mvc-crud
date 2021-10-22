@@ -12,30 +12,29 @@
     {@RenderSection("carousel_css")}
 </head>
 <body>
-
     <header class="p-3 mb-3 border-bottom">
         <div class="container">
             <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
                 <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-dark text-decoration-none">
-                    <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"></use></svg>
-                    @Html.ActionLink("Company", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                    <i class="bi bi-terminal-fill" style="font-size:32px"></i>
+                    @Html.ActionLink("My App", "Index", "Home", new { area = "" }, new { @class = "text-black navbar-brand" })
                 </a>
 
                 <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                    <li><a href="#" class="nav-link px-2 link-secondary">@Html.ActionLink("Home", "Index", "Home")</a></li>
-                    <li><a href="#" class="nav-link px-2 link-dark">@Html.ActionLink("About", "About", "Home")</a></li>
-                    <li><a href="#" class="nav-link px-2 link-dark">@Html.ActionLink("Contact", "Contact", "Home")</a></li>
+                    <li>@Html.ActionLink("Home", "Index", "Home", null, new { @class = "nav-link px-2 link-secondary" })</li>
+                    <li>@Html.ActionLink("About", "About", "Home", null, new { @class = "nav-link px-2 link-dark" })</li>
+                    <li>@Html.ActionLink("Contact", "Contact", "Home", null, new { @class = "nav-link px-2 link-dark" })</li>               
                 </ul>
 
                 <div class="dropdown text-end">
                     <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-                        <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle">
+                        <i class="bi bi-person-circle" style="font-size:32px"></i>
                     </a>
                     <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
                         <li><a class="dropdown-item" href="#">Settings</a></li>
                         <li><a class="dropdown-item" href="#">Profile</a></li>
                         <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="@Url.Action("Logout", "Auth")">Sign out</a></li>
+                        <li>@Html.ActionLink("Sign Out", "Logout", "Auth", null, new { @class = "dropdown-item" })</li>
                     </ul>
                 </div>
             </div>
