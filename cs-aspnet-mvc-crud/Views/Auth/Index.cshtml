@@ -9,6 +9,10 @@
 
 <p>@ViewBag.Message</p>
 
+<div>
+    <a>@Html.ActionLink("Sign In", "Login", "Auth", null, new { @class = "btn btn-primary" })</a>
+</div>
+
 @section auth_css{
     @Styles.Render("~/bundles/auth/css")
 }

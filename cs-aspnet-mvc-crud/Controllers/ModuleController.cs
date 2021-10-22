@@ -19,7 +19,6 @@ namespace cs_aspnet_mvc_crud.Controllers
             ViewBag.CurrentSort = sortOrder;
             ViewBag.IdSortParm = String.IsNullOrEmpty(sortOrder) ? "id_desc" : "";
             ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
-            ViewBag.DescriptionSortParm = String.IsNullOrEmpty(sortOrder) ? "description_desc" : "";
             ViewBag.ModuleCategoryNameSortParm = String.IsNullOrEmpty(sortOrder) ? "module_category_name_desc" : "";
 
             if (searchString != null)
@@ -39,7 +38,6 @@ namespace cs_aspnet_mvc_crud.Controllers
             {
                 modules = modules.Where(o => 
                     o.name.Contains(searchString)
-                    || o.description.Contains(searchString)
                     || o.module_category.name.Contains(searchString)
                 );
             }
@@ -52,11 +50,8 @@ namespace cs_aspnet_mvc_crud.Controllers
                 case "name_desc":
                     modules = modules.OrderByDescending(o => o.name);
                     break;
-                case "description_desc":
-                    modules = modules.OrderByDescending(o => o.description);
-                    break;
                 case "module_category_name_desc":
-                    modules = modules.OrderByDescending(o => o.module_category);
+                    modules = modules.OrderByDescending(o => o.module_category.name);
                     break;
                 default:
                     modules = modules.OrderBy(o => o.id);

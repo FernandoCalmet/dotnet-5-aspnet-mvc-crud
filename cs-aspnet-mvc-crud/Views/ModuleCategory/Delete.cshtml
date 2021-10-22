@@ -18,7 +18,7 @@
                 <div class="accordion-item">
                     <h2 class="accordion-header" id="headingOne">
                         <button class="accordion-button text-white bg-danger" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                            @ViewBag.Title @ViewBag.Model
+                            @ViewBag.Title this @ViewBag.Model
                         </button>
                     </h2>
                     <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionModuleCategory">
@@ -32,6 +32,10 @@
                                     <div class="col-3"><b>Name</b></div>
                                     <div class="col">@Html.DisplayFor(model => model.name)</div>
                                 </div>
+                                <div class="row">
+                                    <div class="col-3"><b>Description</b></div>
+                                    <div class="col">@Html.DisplayFor(model => model.description)</div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -40,8 +44,8 @@
 
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
-                    @Html.ActionLink("Cancel", "Index", null, new { @class = "btn btn-lg btn-danger" })
-                    <input type="submit" value="Delete" class="btn btn-lg btn-primary" />
+                    @Html.ActionLink("Cancel", "Index", null, new { @class = "btn btn-lg btn-dark" })
+                    <input type="submit" value="Delete" class="btn btn-lg btn-danger" />
                 </div>
             </div>
         </div>
