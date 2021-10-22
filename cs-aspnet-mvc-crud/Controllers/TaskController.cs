@@ -116,11 +116,12 @@ namespace cs_aspnet_mvc_crud.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [UserAuthorization(userActionId: 33)]
-        public async Task<ActionResult> Create([Bind(Include = "id,name,description,status,created_at,updated_at,user_id")] task task)
+        public async Task<ActionResult> Create([Bind(Include = "id,name,description,status,created_at,user_id")] task task)
         {
             if (ModelState.IsValid)
             {
                 entityModel.Task.Add(task);
+                task.created_at = DateTime.Now.ToUniversalTime();
                 await entityModel.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
@@ -138,6 +139,7 @@ namespace cs_aspnet_mvc_crud.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             task task = await entityModel.Task.FindAsync(id);
+            task.updated_at = DateTime.Now.ToUniversalTime();
             if (task == null)
             {
                 return HttpNotFound();
@@ -152,11 +154,12 @@ namespace cs_aspnet_mvc_crud.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [UserAuthorization(userActionId: 34)]
-        public async Task<ActionResult> Edit([Bind(Include = "id,name,description,status,created_at,updated_at,user_id")] task task)
+        public async Task<ActionResult> Edit([Bind(Include = "id,name,description,status,updated_at,user_id")] task task)
         {
             if (ModelState.IsValid)
             {
                 entityModel.Entry(task).State = EntityState.Modified;
+                task.updated_at = DateTime.Now.ToUniversalTime();
                 await entityModel.SaveChangesAsync();
                 return RedirectToAction("Index");
             }

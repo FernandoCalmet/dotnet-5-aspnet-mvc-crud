@@ -22,7 +22,7 @@ namespace cs_aspnet_mvc_crud.Models
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            throw new UnintentionalCodeFirstException();
+            throw new UnintentionalCodeFirstException();        
         }
     
         public virtual DbSet<module> Module { get; set; }
