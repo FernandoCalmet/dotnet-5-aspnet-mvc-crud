@@ -48,7 +48,7 @@
 
                 <div class="control-label">Birthdate</div>
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.birthdate, new { htmlAttributes = new { type = "datetime-local" } })
+                    @Html.EditorFor(model => model.birthdate, new { htmlAttributes = new { @class = "form-control" , type = "date" } })
                     @Html.ValidationMessageFor(model => model.birthdate, "", new { @class = "text-danger" })
                 </div>
 
