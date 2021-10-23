@@ -27,10 +27,10 @@
                 <label for="field_pass">Password</label>
             </div>
 
-            <input class="w-100 btn btn-lg btn-primary" type="submit" value="Sign Up"/>
+            <input class="w-100 mt-4 btn btn-lg btn-primary" type="submit" value="Sign In" />
 
-            <p class="mt-5 text-muted">&copy; @DateTime.Now.Year <a class="text-black" href="/"> <i class="bi bi-terminal-fill" style="font-size:16px"></i> My App</a>.</p>
-            <p class="mb-3 text-muted">Developed by <a href="https://www.linkedin.com/in/fernandocalmet/">Fernando Calmet R.</a></p>
+            <p class="mt-4 mb-4">Do not you have an account yet? @Html.ActionLink("Sign up here", "SignUp", null, new { @class = "text-wrap" })</p>
+
         </form>
     </main>
 }

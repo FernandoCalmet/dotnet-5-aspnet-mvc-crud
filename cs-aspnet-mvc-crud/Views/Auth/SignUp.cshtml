@@ -1,0 +1,78 @@
+﻿@model cs_aspnet_mvc_crud.Models.user
+
+@{
+    ViewBag.Title = "User Sign Up";
+    Layout = "~/Views/Shared/_LayoutAuth.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <main class="form-signin text-center">
+        <form action="@Url.Content("~/Auth/SignUp")" method="post">
+            <i class="bi bi-person-check-fill" style="font-size: 60px"></i>
+            <h1 class="h3 mb-3 fw-normal">@ViewBag.Title</h1>
+
+            @if (ViewBag.Error != null)
+            {
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    <strong>@ViewBag.Error</strong>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            }
+
+            @if (ViewBag.Message != null)
+            {
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <strong>@ViewBag.Message @Html.ActionLink("Sign in here!", "Login")</strong>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            }
+
+            <div class="form-floating">
+                @Html.EditorFor(model => model.username, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.username, "", new { @class = "text-danger" })
+                <label for="field_username">Username</label>
+            </div>
+
+            <div class="form-floating">
+                @Html.EditorFor(model => model.email, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.email, "", new { @class = "text-danger" })
+                <label for="field_email">Email</label>
+            </div>
+
+            <div class="form-floating">
+                @Html.EditorFor(model => model.password_hash, new { htmlAttributes = new { @class = "form-control", @type = "password" } })
+                @Html.ValidationMessageFor(model => model.password_hash, "", new { @class = "text-danger" })
+                <label for="field_password">Password</label>
+            </div>
+
+            <div class="form-floating">
+                @Html.EditorFor(model => model.first_name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.first_name, "", new { @class = "text-danger" })
+                <label for="field_firstname">First Name</label>
+            </div>
+
+            <div class="form-floating">
+                @Html.EditorFor(model => model.last_name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.last_name, "", new { @class = "text-danger" })
+                <label for="field_lastname">Last Name</label>
+            </div>
+
+            <div class="form-floating">
+                @Html.EditorFor(model => model.birthdate, new { htmlAttributes = new { @class = "form-control", type = "date" } })
+                @Html.ValidationMessageFor(model => model.birthdate, "", new { @class = "text-danger" })
+                <label for="field_birthdate">Birthdate</label>
+            </div>
+
+            <input class="w-100 mt-4 btn btn-lg btn-primary" type="submit" value="Sign Up" />
+
+            <p class="mt-4 mb-4">Do you already have an account? @Html.ActionLink("Sign In Here", "Login", null, new { @class = "text-wrap" })</p>
+
+        </form>
+    </main>
+}
+
+@section auth_css{
+    @Styles.Render("~/bundles/auth/css")
+}

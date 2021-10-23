@@ -346,6 +346,7 @@
     <Content Include="Views\Auth\Login.cshtml" />
     <Content Include="Views\Auth\Logout.cshtml" />
     <Content Include="Views\Shared\_LayoutAuth.cshtml" />
+    <Content Include="Views\Auth\SignUp.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
