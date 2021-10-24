@@ -24,7 +24,7 @@
                 <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
                     <li>@Html.ActionLink("Home", "Index", "Home", null, new { @class = "nav-link px-2 link-secondary" })</li>
 
-                    <div class="dropdown">
+                    <li class="dropdown">
                         <button class="btn btn-notline-customed dropdown-toggle" type="button" id="dropdownMenuButtonOne" data-bs-toggle="dropdown" aria-expanded="false">
                             General
                         </button>
@@ -33,9 +33,9 @@
                             <li>@Html.ActionLink("Notes", "Index", "Note", null, new { @class = "dropdown-item nav-link px-2 link-dark" })</li>
                             <li>@Html.ActionLink("Tasks Notes", "Index", "TaskNote", null, new { @class = "dropdown-item nav-link px-2 link-dark" })</li>
                         </ul>
-                    </div>
+                    </li>
 
-                    <div class="dropdown">
+                    <li class="dropdown">
                         <button class="btn btn-notline-customed dropdown-toggle" type="button" id="dropdownMenuButtonTwo" data-bs-toggle="dropdown" aria-expanded="false">
                             Security
                         </button>
@@ -47,7 +47,7 @@
                             <li>@Html.ActionLink("Users Permissions", "Index", "UserPermission", null, new { @class = "dropdown-item nav-link px-2 link-dark" })</li>
                             <li>@Html.ActionLink("Users", "Index", "User", null, new { @class = "dropdown-item nav-link px-2 link-dark" })</li>
                         </ul>
-                    </div>
+                    </li>
 
                     <li>@Html.ActionLink("About", "About", "Home", null, new { @class = "nav-link px-2 link-dark" })</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home", null, new { @class = "nav-link px-2 link-dark" })</li>
