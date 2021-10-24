@@ -224,6 +224,7 @@
     <Content Include="Content\bootstrap.rtl.min.css" />
     <Content Include="Content\DefaultTheme\auth.css" />
     <Content Include="Content\DefaultTheme\carousel.css" />
+    <Content Include="Content\DefaultTheme\cover.css" />
     <Content Include="Content\DefaultTheme\headers.css" />
     <Content Include="Content\DefaultTheme\siderbars.css" />
     <Content Include="Content\PagedList.css" />

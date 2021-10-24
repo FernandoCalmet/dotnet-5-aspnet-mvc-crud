@@ -11,12 +11,20 @@ namespace cs_aspnet_mvc_crud.Controllers
         //GET: Auth
         public ActionResult Index()
         {
+            if (Session["field_user"] != null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
             return View();
         }
 
         // GET: Login
         public ActionResult Login()
         {
+            if (Session["field_user"] != null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
             return View();
         }
 
@@ -61,6 +69,10 @@ namespace cs_aspnet_mvc_crud.Controllers
         // POST: SignUp
         public ActionResult SignUp()
         {
+            if (Session["field_user"] != null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
             return View();
         }
 
