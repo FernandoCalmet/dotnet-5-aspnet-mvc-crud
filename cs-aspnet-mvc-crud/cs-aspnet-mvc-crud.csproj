@@ -154,7 +154,9 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Middleware\Auth\UserAuthorization.cs" />
+    <Compile Include="Middleware\Auth\UserCustomMembership.cs" />
     <Compile Include="Middleware\Auth\UserSession.cs" />
+    <Compile Include="Middleware\Providers\CustomMembershipProvider.cs" />
     <Compile Include="Middleware\Providers\UserRoleProvider.cs" />
     <Compile Include="Models\ModelDB.Context.cs">
       <AutoGen>True</AutoGen>
