@@ -1,6 +1,7 @@
 ﻿using cs_aspnet_mvc_crud.Models;
 using System;
 using System.Linq;
+using System.Web;
 using System.Web.Security;
 
 namespace cs_aspnet_mvc_crud.Middleware.Providers
@@ -38,6 +39,11 @@ namespace cs_aspnet_mvc_crud.Middleware.Providers
         {
             using (DBEntities entityModel = new DBEntities())
             {
+                if (!HttpContext.Current.User.Identity.IsAuthenticated)
+                {
+                    return null;
+                }
+
                 var userPositions = (
                     from userMapping in entityModel.User
                     join positionMapping in entityModel.UserPosition
