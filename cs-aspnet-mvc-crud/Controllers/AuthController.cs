@@ -8,7 +8,7 @@ using System.Web.Security;
 
 namespace cs_aspnet_mvc_crud.Controllers
 {
-    public class AuthController : Controller
+    public class AuthController : BaseController
     {
         //GET: Auth
         public ActionResult Index()
@@ -50,8 +50,17 @@ namespace cs_aspnet_mvc_crud.Controllers
                         return View();
                     }
                                         
-                    Session["field_user"] = userModel;
-                }                
+                    Session["field_user"] = userModel;   
+                    
+                    if(userModel.user_position_id == 1)
+                    {
+                        isAdmin = true;
+                    }
+                    else
+                    {
+                        isAdmin = false;
+                    }
+                }
 
                 return RedirectToAction("Index", "Home");
             }

@@ -7,5 +7,6 @@ namespace cs_aspnet_mvc_crud.Controllers
     {
         protected DBEntities entityModel = new DBEntities();
         public readonly int pageSize = 10;
+        protected static bool isAdmin = false;
     }
 }

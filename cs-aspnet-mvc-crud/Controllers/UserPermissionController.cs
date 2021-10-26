@@ -16,6 +16,8 @@ namespace cs_aspnet_mvc_crud.Controllers
         [UserAuthorization(userActionId: 21)]
         public ActionResult Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
+            ViewBag.isAdmin = isAdmin;
+
             ViewBag.CurrentSort = sortOrder;
             ViewBag.IdSortParm = String.IsNullOrEmpty(sortOrder) ? "id_desc" : "";
             ViewBag.UserPositionNameSortParm = String.IsNullOrEmpty(sortOrder) ? "user_position_name_desc" : "";

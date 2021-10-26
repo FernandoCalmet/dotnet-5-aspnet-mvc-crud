@@ -14,20 +14,14 @@
 <body>
     <header class="p-3 mb-3 border-bottom">
         <div class="container">
-            <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-
+            <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">                
                 <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-dark text-decoration-none">
                     <i class="bi bi-terminal-fill" style="font-size:32px"></i>
                     @Html.ActionLink("My App", "Index", "Home", new { area = "" }, new { @class = "text-black navbar-brand" })
                 </a>
                 <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                    <li>@Html.ActionLink("Home", "Index", "Home", null, new { @class = "nav-link px-2 link-secondary" })</li>
-
-                    @if (User.Identity.IsAuthenticated)
-                    {
-
-                        if (User.IsInRole("Administrator") || User.IsInRole("Customer"))
-                        {
+                    <li>@Html.ActionLink("Home", "Index", "Home", null, new { @class = "nav-link px-2 link-secondary" })</li>   
+                    
                             <li class="dropdown">
                                 <button class="btn btn-notline-customed dropdown-toggle" type="button" id="dropdownMenuButtonOne" data-bs-toggle="dropdown" aria-expanded="false">
                                     General
@@ -38,9 +32,8 @@
                                     <li>@Html.ActionLink("Tasks Notes", "Index", "TaskNote", null, new { @class = "dropdown-item nav-link px-2 link-dark" })</li>
                                 </ul>
                             </li>
-                        }
-
-                        if (User.IsInRole("Administrator"))
+                    
+                        @if (@ViewBag.isAdmin == true)
                         {
                             <li class="dropdown">
                                 <button class="btn btn-notline-customed dropdown-toggle" type="button" id="dropdownMenuButtonTwo" data-bs-toggle="dropdown" aria-expanded="false">
@@ -56,7 +49,7 @@
                                 </ul>
                             </li>
                         }
-                    }
+                 
 
                     <li>@Html.ActionLink("About", "About", "Home", null, new { @class = "nav-link px-2 link-dark" })</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home", null, new { @class = "nav-link px-2 link-dark" })</li>
