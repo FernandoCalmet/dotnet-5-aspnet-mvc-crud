@@ -140,6 +140,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AuthController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ModuleCategoryController.cs" />
     <Compile Include="Controllers\ModuleController.cs" />
@@ -154,10 +155,9 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Middleware\Auth\UserAuthorization.cs" />
-    <Compile Include="Middleware\Auth\UserCustomMembership.cs" />
     <Compile Include="Middleware\Auth\UserSession.cs" />
-    <Compile Include="Middleware\Providers\CustomMembershipProvider.cs" />
     <Compile Include="Middleware\Providers\UserRoleProvider.cs" />
+    <Compile Include="Models\LoginViewModel.cs" />
     <Compile Include="Models\ModelDB.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -350,6 +350,7 @@
     <Content Include="Views\Auth\Logout.cshtml" />
     <Content Include="Views\Shared\_LayoutAuth.cshtml" />
     <Content Include="Views\Auth\SignUp.cshtml" />
+    <Content Include="Views\Error\AccessDenied.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
