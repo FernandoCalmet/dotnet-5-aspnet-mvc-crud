@@ -2,6 +2,7 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 
@@ -64,6 +65,12 @@ namespace cs_aspnet_mvc_crud.Controllers
         // GET: Logout
         public ActionResult Logout()
         {
+            HttpCookie cookie = new HttpCookie("Cookie1", "");
+            cookie.Expires = DateTime.Now.AddYears(-1);
+            Response.Cookies.Add(cookie);
+
+            FormsAuthentication.SignOut();
+
             Session["field_user"] = null;
             return RedirectToAction("Index", "Home");
         }

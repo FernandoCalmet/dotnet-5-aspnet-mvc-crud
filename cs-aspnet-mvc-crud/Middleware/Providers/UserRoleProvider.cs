@@ -37,13 +37,13 @@ namespace cs_aspnet_mvc_crud.Middleware.Providers
 
         public override string[] GetRolesForUser(string userPositionName)
         {
+            if (!HttpContext.Current.User.Identity.IsAuthenticated)
+            {
+                return null;
+            }
+
             using (DBEntities entityModel = new DBEntities())
             {
-                if (!HttpContext.Current.User.Identity.IsAuthenticated)
-                {
-                    return null;
-                }
-
                 var userPositions = (
                     from userMapping in entityModel.User
                     join positionMapping in entityModel.UserPosition
