@@ -20,38 +20,47 @@
                     <i class="bi bi-terminal-fill" style="font-size:32px"></i>
                     @Html.ActionLink("My App", "Index", "Home", new { area = "" }, new { @class = "text-black navbar-brand" })
                 </a>
-
                 <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
                     <li>@Html.ActionLink("Home", "Index", "Home", null, new { @class = "nav-link px-2 link-secondary" })</li>
 
-                    <li class="dropdown">
-                        <button class="btn btn-notline-customed dropdown-toggle" type="button" id="dropdownMenuButtonOne" data-bs-toggle="dropdown" aria-expanded="false">
-                            General
-                        </button>
-                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButtonOne">
-                            <li>@Html.ActionLink("Tasks", "Index", "Task", null, new { @class = "dropdown-item nav-link px-2 link-dark" })</li>
-                            <li>@Html.ActionLink("Notes", "Index", "Note", null, new { @class = "dropdown-item nav-link px-2 link-dark" })</li>
-                            <li>@Html.ActionLink("Tasks Notes", "Index", "TaskNote", null, new { @class = "dropdown-item nav-link px-2 link-dark" })</li>
-                        </ul>
-                    </li>
+                    @if (User.Identity.IsAuthenticated)
+                    {
 
-                    <li class="dropdown">
-                        <button class="btn btn-notline-customed dropdown-toggle" type="button" id="dropdownMenuButtonTwo" data-bs-toggle="dropdown" aria-expanded="false">
-                            Security
-                        </button>
-                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButtonTwo">
-                            <li>@Html.ActionLink("Modules Categories", "Index", "ModuleCategory", null, new { @class = "dropdown-item nav-link px-2 link-dark" })</li>
-                            <li>@Html.ActionLink("Modules", "Index", "Module", null, new { @class = "dropdown-item nav-link px-2 link-dark" })</li>
-                            <li>@Html.ActionLink("Users Positions", "Index", "UserPosition", null, new { @class = "dropdown-item nav-link px-2 link-dark" })</li>
-                            <li>@Html.ActionLink("Users Actions", "Index", "UserAction", null, new { @class = "dropdown-item nav-link px-2 link-dark" })</li>
-                            <li>@Html.ActionLink("Users Permissions", "Index", "UserPermission", null, new { @class = "dropdown-item nav-link px-2 link-dark" })</li>
-                            <li>@Html.ActionLink("Users", "Index", "User", null, new { @class = "dropdown-item nav-link px-2 link-dark" })</li>
-                        </ul>
-                    </li>
+                        if (User.IsInRole("Administrator") || User.IsInRole("Customer"))
+                        {
+                            <li class="dropdown">
+                                <button class="btn btn-notline-customed dropdown-toggle" type="button" id="dropdownMenuButtonOne" data-bs-toggle="dropdown" aria-expanded="false">
+                                    General
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButtonOne">
+                                    <li>@Html.ActionLink("Tasks", "Index", "Task", null, new { @class = "dropdown-item nav-link px-2 link-dark" })</li>
+                                    <li>@Html.ActionLink("Notes", "Index", "Note", null, new { @class = "dropdown-item nav-link px-2 link-dark" })</li>
+                                    <li>@Html.ActionLink("Tasks Notes", "Index", "TaskNote", null, new { @class = "dropdown-item nav-link px-2 link-dark" })</li>
+                                </ul>
+                            </li>
+                        }
+
+                        if (User.IsInRole("Administrator"))
+                        {
+                            <li class="dropdown">
+                                <button class="btn btn-notline-customed dropdown-toggle" type="button" id="dropdownMenuButtonTwo" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Security
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButtonTwo">
+                                    <li>@Html.ActionLink("Modules Categories", "Index", "ModuleCategory", null, new { @class = "dropdown-item nav-link px-2 link-dark" })</li>
+                                    <li>@Html.ActionLink("Modules", "Index", "Module", null, new { @class = "dropdown-item nav-link px-2 link-dark" })</li>
+                                    <li>@Html.ActionLink("Users Positions", "Index", "UserPosition", null, new { @class = "dropdown-item nav-link px-2 link-dark" })</li>
+                                    <li>@Html.ActionLink("Users Actions", "Index", "UserAction", null, new { @class = "dropdown-item nav-link px-2 link-dark" })</li>
+                                    <li>@Html.ActionLink("Users Permissions", "Index", "UserPermission", null, new { @class = "dropdown-item nav-link px-2 link-dark" })</li>
+                                    <li>@Html.ActionLink("Users", "Index", "User", null, new { @class = "dropdown-item nav-link px-2 link-dark" })</li>
+                                </ul>
+                            </li>
+                        }
+                    }
 
                     <li>@Html.ActionLink("About", "About", "Home", null, new { @class = "nav-link px-2 link-dark" })</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home", null, new { @class = "nav-link px-2 link-dark" })</li>
-                </ul>                
+                </ul>
 
                 <div class="dropdown text-end">
                     <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">

@@ -49,6 +49,7 @@ namespace cs_aspnet_mvc_crud.Middleware.Providers
                     where permissionMapping.user_position_id == userMapping.user_position_id
                         && positionMapping.name == userPositionName
                     select positionMapping.name).ToArray();
+
                 return userPositions;
             }
         }
@@ -60,7 +61,9 @@ namespace cs_aspnet_mvc_crud.Middleware.Providers
 
         public override bool IsUserInRole(string username, string roleName)
         {
-            throw new NotImplementedException();
+            var userPositions = GetRolesForUser(username);
+
+            return userPositions.Contains(roleName);
         }
 
         public override void RemoveUsersFromRoles(string[] usernames, string[] roleNames)

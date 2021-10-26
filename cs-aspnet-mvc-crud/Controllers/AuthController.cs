@@ -3,6 +3,7 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using System.Web.Security;
 
 namespace cs_aspnet_mvc_crud.Controllers
 {
@@ -47,9 +48,10 @@ namespace cs_aspnet_mvc_crud.Controllers
                         ViewBag.Error = "The user or password is not valid.";
                         return View();
                     }
-
+                                        
                     Session["field_user"] = userModel;
-                }
+                }                
+
                 return RedirectToAction("Index", "Home");
             }
             catch (Exception ex)
