@@ -10,7 +10,7 @@
 * [Acerca del proyecto](#acerca-del-proyecto)
 * [Instalación](#instalación)
 * [Dependencias](#dependencias)
-* [Licensia](#licensia)
+* [Licencia](#licencia)
 
 ## 🔥 ACERCA DEL PROYECTO
 
@@ -52,7 +52,7 @@ dotnet run
 - [starkbank-ecdsa](https://www.nuget.org/packages/starkbank-ecdsa/) : Esta es una implementación pura en C # del algoritmo de firma digital de curva elíptica. Es compatible con .NET Standard 1.3, 2.0 y 2.1. También es compatible con OpenSSL. Utiliza algunas matemáticas elegantes como las coordenadas jacobianas para acelerar el ECDSA en C # puro.
 - [WebGrease](https://www.nuget.org/packages/WebGrease/) : Web Grease es un conjunto de herramientas para optimizar javascript, archivos css e imágenes.
 
-## 📄 LICENSIA
+## 📄 LICENCIA
 
 Este proyecto está bajo la Licencia (Licencia MIT) - mire el archivo [LICENSE](LICENSE) para más detalles.
 
