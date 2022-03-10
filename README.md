@@ -21,7 +21,7 @@ Este proyecto es una muestra de login y CRUD con paginación, ordenamientos y fi
 Clonar el repositorio.
 
 ```bash
-gh repo clone FernandoCalmet/CS-ASPNET-MVC-CRUD
+gh repo clone FernandoCalmet/DOTNET-5-ASPNET-MVC-CRUD
 ```
 
 Ejecutar aplicación.
